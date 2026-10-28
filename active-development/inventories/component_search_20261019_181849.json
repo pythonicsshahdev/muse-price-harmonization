@@ -1,0 +1,260 @@
+{
+  "metadata": {
+    "timestamp": "20261019_181849",
+    "query": "component-metadata",
+    "filters": {
+      "folder": "boomi_shah_abdullah/Demos",
+      "recursive": true,
+      "resolvedFolders": [
+        "Rjo4MjY0OTA2",
+        "Rjo4MjY0OTA4",
+        "Rjo4Mzc4MzMz",
+        "Rjo4NDY1NzQx",
+        "Rjo4NDkxMDk5",
+        "Rjo4NDk5OTI5",
+        "Rjo4ODMwNzYw",
+        "Rjo4NzIwMDc3"
+      ],
+      "folderScope": [
+        {
+          "id": "Rjo4MjY0OTA2",
+          "name": "Demos",
+          "fullPath": "boomi_shah_abdullah/Demos"
+        },
+        {
+          "id": "Rjo4MjY0OTA4",
+          "name": "Generic Demo",
+          "fullPath": "boomi_shah_abdullah/Demos/Generic Demo"
+        },
+        {
+          "id": "Rjo4Mzc4MzMz",
+          "name": "API Gateway Demo",
+          "fullPath": "boomi_shah_abdullah/Demos/API Gateway Demo"
+        },
+        {
+          "id": "Rjo4NDY1NzQx",
+          "name": "Pagination Demo",
+          "fullPath": "boomi_shah_abdullah/Demos/Pagination Demo"
+        },
+        {
+          "id": "Rjo4NDkxMDk5",
+          "name": "Generic API Integration and API Gateway",
+          "fullPath": "boomi_shah_abdullah/Demos/Generic API Integration and API Gateway"
+        },
+        {
+          "id": "Rjo4NDk5OTI5",
+          "name": "PDF Files to Text",
+          "fullPath": "boomi_shah_abdullah/Demos/PDF Files to Text"
+        },
+        {
+          "id": "Rjo4ODMwNzYw",
+          "name": "Akima POC",
+          "fullPath": "boomi_shah_abdullah/Demos/Akima POC"
+        },
+        {
+          "id": "Rjo4NzIwMDc3",
+          "name": "HL7 Parsing Demo",
+          "fullPath": "boomi_shah_abdullah/Demos/Generic Demo/HL7 Parsing Demo"
+        }
+      ],
+      "name": null,
+      "type": [
+        "process"
+      ]
+    },
+    "truncated": false,
+    "implicitFilters": {
+      "currentVersion": true,
+      "deleted": false
+    }
+  },
+  "records": [
+    {
+      "@type": "ComponentMetadata",
+      "componentId": "7279fd4f-452b-48d7-81dd-674f74a64617",
+      "version": 9,
+      "name": "testing csv with flow control",
+      "type": "process",
+      "createdDate": "2026-03-08T19:07:09Z",
+      "createdBy": "shah.abdullah@boomi.com",
+      "modifiedDate": "2026-03-09T16:16:44Z",
+      "modifiedBy": "shah.abdullah@boomi.com",
+      "deleted": false,
+      "currentVersion": true,
+      "folderName": "Demos",
+      "folderId": "Rjo4MjY0OTA2",
+      "branchName": "main",
+      "branchId": "Qjo1Mzg4MDc"
+    },
+    {
+      "@type": "ComponentMetadata",
+      "componentId": "ad6b48a1-5d49-4178-86b5-ef5fa0835ed8",
+      "version": 1,
+      "name": "DH - Customer Inbound (Copy)",
+      "type": "process",
+      "createdDate": "2026-08-17T15:47:48Z",
+      "createdBy": "shah.abdullah@boomi.com",
+      "modifiedDate": "2026-08-17T15:47:48Z",
+      "modifiedBy": "shah.abdullah@boomi.com",
+      "deleted": false,
+      "currentVersion": true,
+      "folderName": "Demos",
+      "folderId": "Rjo4MjY0OTA2",
+      "branchName": "main",
+      "branchId": "Qjo1Mzg4MDc"
+    },
+    {
+      "@type": "ComponentMetadata",
+      "componentId": "b678f50e-f19e-4a8c-bbeb-6563bdec3f27",
+      "version": 19,
+      "name": "SF to Mysql",
+      "type": "process",
+      "createdDate": "2026-01-21T02:49:44Z",
+      "createdBy": "shah.abdullah@boomi.com",
+      "modifiedDate": "2026-10-19T03:28:31Z",
+      "modifiedBy": "shah.abdullah@boomi.com",
+      "deleted": false,
+      "currentVersion": true,
+      "folderName": "Generic Demo",
+      "folderId": "Rjo4MjY0OTA4",
+      "branchName": "main",
+      "branchId": "Qjo1Mzg4MDc"
+    },
+    {
+      "@type": "ComponentMetadata",
+      "componentId": "726bd3db-ad1b-4e31-8376-60e8a1703f16",
+      "version": 1,
+      "name": "New Process",
+      "type": "process",
+      "createdDate": "2026-04-14T14:27:07Z",
+      "createdBy": "shah.abdullah@boomi.com",
+      "modifiedDate": "2026-04-14T14:27:07Z",
+      "modifiedBy": "shah.abdullah@boomi.com",
+      "deleted": false,
+      "currentVersion": true,
+      "folderName": "Pagination Demo",
+      "folderId": "Rjo4NDY1NzQx",
+      "branchName": "main",
+      "branchId": "Qjo1Mzg4MDc"
+    },
+    {
+      "@type": "ComponentMetadata",
+      "componentId": "178c6a3f-1209-4b4b-9ae3-ae08bc53545a",
+      "version": 1,
+      "name": "PDF_Extraction_Listener",
+      "type": "process",
+      "createdDate": "2026-04-24T16:17:25Z",
+      "createdBy": "shah.abdullah@boomi.com",
+      "modifiedDate": "2026-04-24T16:17:25Z",
+      "modifiedBy": "shah.abdullah@boomi.com",
+      "deleted": false,
+      "currentVersion": true,
+      "folderName": "PDF Files to Text",
+      "folderId": "Rjo4NDk5OTI5",
+      "branchName": "main",
+      "branchId": "Qjo1Mzg4MDc"
+    },
+    {
+      "@type": "ComponentMetadata",
+      "componentId": "ac874d50-ad3e-40c3-83ce-94734503667d",
+      "version": 5,
+      "name": "HL7 ADT-A01 Parsing Demo",
+      "type": "process",
+      "createdDate": "2026-07-22T12:17:55Z",
+      "createdBy": "shah.abdullah@boomi.com",
+      "modifiedDate": "2026-07-22T14:27:26Z",
+      "modifiedBy": "shah.abdullah@boomi.com",
+      "deleted": false,
+      "currentVersion": true,
+      "folderName": "HL7 Parsing Demo",
+      "folderId": "Rjo4NzIwMDc3",
+      "branchName": "main",
+      "branchId": "Qjo1Mzg4MDc"
+    },
+    {
+      "@type": "ComponentMetadata",
+      "componentId": "1b55ca57-7092-48cc-ba26-5059680a3cbc",
+      "version": 8,
+      "name": "AKIMA - Payroll Export (Parent)",
+      "type": "process",
+      "createdDate": "2026-09-10T11:31:17Z",
+      "createdBy": "shah.abdullah@boomi.com",
+      "modifiedDate": "2026-09-10T13:57:38Z",
+      "modifiedBy": "shah.abdullah@boomi.com",
+      "deleted": false,
+      "currentVersion": true,
+      "folderName": "Akima POC",
+      "folderId": "Rjo4ODMwNzYw",
+      "branchName": "main",
+      "branchId": "Qjo1Mzg4MDc"
+    },
+    {
+      "@type": "ComponentMetadata",
+      "componentId": "6049b9b4-a9bc-4b5a-98b1-7419f3b0c0ee",
+      "version": 1,
+      "name": "AKIMA - TEMP PGP XML harvest",
+      "type": "process",
+      "createdDate": "2026-09-10T13:36:50Z",
+      "createdBy": "shah.abdullah@boomi.com",
+      "modifiedDate": "2026-09-10T13:36:50Z",
+      "modifiedBy": "shah.abdullah@boomi.com",
+      "deleted": false,
+      "currentVersion": true,
+      "folderName": "Akima POC",
+      "folderId": "Rjo4ODMwNzYw",
+      "branchName": "main",
+      "branchId": "Qjo1Mzg4MDc"
+    },
+    {
+      "@type": "ComponentMetadata",
+      "componentId": "7a0dce1d-9fd0-4af6-829b-41b84a303990",
+      "version": 1,
+      "name": "[SUB] AKIMA - Deliver to MFT",
+      "type": "process",
+      "createdDate": "2026-09-10T12:54:11Z",
+      "createdBy": "shah.abdullah@boomi.com",
+      "modifiedDate": "2026-09-10T12:54:11Z",
+      "modifiedBy": "shah.abdullah@boomi.com",
+      "deleted": false,
+      "currentVersion": true,
+      "folderName": "Akima POC",
+      "folderId": "Rjo4ODMwNzYw",
+      "branchName": "main",
+      "branchId": "Qjo1Mzg4MDc"
+    },
+    {
+      "@type": "ComponentMetadata",
+      "componentId": "8ab68952-833f-4d64-b380-80a9fa0ae552",
+      "version": 1,
+      "name": "AKIMA - TEST MFT DropOff (throwaway)",
+      "type": "process",
+      "createdDate": "2026-09-10T12:54:58Z",
+      "createdBy": "shah.abdullah@boomi.com",
+      "modifiedDate": "2026-09-10T12:54:58Z",
+      "modifiedBy": "shah.abdullah@boomi.com",
+      "deleted": false,
+      "currentVersion": true,
+      "folderName": "Akima POC",
+      "folderId": "Rjo4ODMwNzYw",
+      "branchName": "main",
+      "branchId": "Qjo1Mzg4MDc"
+    },
+    {
+      "@type": "ComponentMetadata",
+      "componentId": "a68fedfe-1eb3-42e3-b1bd-870b8bac64ba",
+      "version": 3,
+      "name": "[SUB] AKIMA - Encrypt and Deliver",
+      "type": "process",
+      "createdDate": "2026-09-10T13:40:48Z",
+      "createdBy": "shah.abdullah@boomi.com",
+      "modifiedDate": "2026-09-10T15:50:14Z",
+      "modifiedBy": "shah.abdullah@boomi.com",
+      "deleted": false,
+      "currentVersion": true,
+      "folderName": "Akima POC",
+      "folderId": "Rjo4ODMwNzYw",
+      "branchName": "main",
+      "branchId": "Qjo1Mzg4MDc"
+    }
+  ]
+}

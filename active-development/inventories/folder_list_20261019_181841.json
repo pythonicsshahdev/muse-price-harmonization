@@ -1,0 +1,58 @@
+{
+  "metadata": {
+    "timestamp": "20261019_181841",
+    "query": "folder-list",
+    "filters": {
+      "folder": "Demos",
+      "recursive": true
+    },
+    "truncated": false,
+    "implicitFilters": {
+      "deleted": false
+    }
+  },
+  "records": [
+    {
+      "id": "Rjo4MjY0OTA4",
+      "name": "Generic Demo",
+      "fullPath": "boomi_shah_abdullah/Demos/Generic Demo",
+      "parentId": "Rjo4MjY0OTA2"
+    },
+    {
+      "id": "Rjo4Mzc4MzMz",
+      "name": "API Gateway Demo",
+      "fullPath": "boomi_shah_abdullah/Demos/API Gateway Demo",
+      "parentId": "Rjo4MjY0OTA2"
+    },
+    {
+      "id": "Rjo4NDY1NzQx",
+      "name": "Pagination Demo",
+      "fullPath": "boomi_shah_abdullah/Demos/Pagination Demo",
+      "parentId": "Rjo4MjY0OTA2"
+    },
+    {
+      "id": "Rjo4NDkxMDk5",
+      "name": "Generic API Integration and API Gateway",
+      "fullPath": "boomi_shah_abdullah/Demos/Generic API Integration and API Gateway",
+      "parentId": "Rjo4MjY0OTA2"
+    },
+    {
+      "id": "Rjo4NDk5OTI5",
+      "name": "PDF Files to Text",
+      "fullPath": "boomi_shah_abdullah/Demos/PDF Files to Text",
+      "parentId": "Rjo4MjY0OTA2"
+    },
+    {
+      "id": "Rjo4ODMwNzYw",
+      "name": "Akima POC",
+      "fullPath": "boomi_shah_abdullah/Demos/Akima POC",
+      "parentId": "Rjo4MjY0OTA2"
+    },
+    {
+      "id": "Rjo4NzIwMDc3",
+      "name": "HL7 Parsing Demo",
+      "fullPath": "boomi_shah_abdullah/Demos/Generic Demo/HL7 Parsing Demo",
+      "parentId": "Rjo4MjY0OTA4"
+    }
+  ]
+}
