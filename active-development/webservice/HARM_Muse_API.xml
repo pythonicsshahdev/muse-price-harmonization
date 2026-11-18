@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<bns:Component xmlns:bns="http://api.platform.boomi.com/" componentId="ac1ad2c0-48de-4100-9163-246dcc35b844" folderId="Rjo4OTczNjc5" type="webservice" name="HARM - Muse API">
+  <bns:encryptedValues/>
+  <bns:description>The three actions Muse can trigger for the SKU/price harmonization POC. | built with boomi-companion v1.0.107</bns:description>
+  <bns:object>
+    <webservice xmlns="" urlPath="muse">
+      <restApi><route processId="d96fad04-17c0-45af-a317-a7fb04ece1ab"><overrides contentType="" httpMethod="" inputProfileKey="" inputType="" objectName="" outputProfileKey="" outputType="" urlPath="runHarmonization"/><description>Runs the full harmonization pipeline and the dbt/Elementary tests.</description></route><route processId="c2ed2b97-65bf-4f99-903b-683afc992649"><overrides contentType="" httpMethod="" inputProfileKey="" inputType="" objectName="" outputProfileKey="" outputType="" urlPath="changeShopifyPrice"/><description>Sets a POC product's Shopify price by GTIN.</description></route><route processId="596967b0-f95b-4ad8-ac2f-93b7497fa206"><overrides contentType="" httpMethod="" inputProfileKey="" inputType="" objectName="" outputProfileKey="" outputType="" urlPath="showElementaryResults"/><description>Latest dbt/Elementary test summary.</description></route></restApi>
+      <soapApi fullEnvelopePassthrough="false" singleWsdlSchema="false" suppressWrappers="false" wsdlNamespace="" wsdlServiceName=""><SOAPVersion>SOAP_1_1</SOAPVersion></soapApi>
+      <odataApi/>
+      <metaInfo title="HARM - Muse API" version="1" contactEmail="" contactName="" contactUrl="" licenseName="" licenseUrl=""><description>SKU and price harmonization POC</description><termsOfService/></metaInfo>
+      <profileOverrides/>
+      <capturedHeaders/>
+      <apiRoles/>
+    </webservice>
+  </bns:object>
+</bns:Component>

@@ -6,7 +6,7 @@
     <process allowSimultaneous="false" enableUserLog="false" processLogOnErrorOnly="false" purgeDataImmediately="false" stopProcessingIfZeroDocuments="true" updateRunDates="false" workload="general">
       <shapes>
         <shape image="start" name="shape1" shapetype="start" userlabel="" x="48.0" y="96.0">
-          <configuration><noaction/></configuration>
+          <configuration><passthroughaction/></configuration>
           <dragpoints><dragpoint name="shape1.dragpoint1" toShape="shape2" x="224.0" y="104.0"/></dragpoints>
         </shape>
         <shape image="connectoraction_icon" name="shape2" shapetype="connectoraction" userlabel="Query Shopify products" x="240.0" y="96.0">

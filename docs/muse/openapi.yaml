@@ -1,0 +1,122 @@
+openapi: 3.0.3
+info:
+  title: SKU and Price Harmonization POC
+  version: "1.0"
+  description: >
+    Three actions for a CPG product-harmonization demo. The Boomi Integration process behind each
+    one reads a Shopify development store and an AWS Marketplace mock, harmonizes them in Boomi
+    Data Hub, and checks the result with dbt and Elementary. Prices are decimal strings.
+servers:
+  - url: https://REPLACE-WITH-YOUR-TUNNEL-HOST/ws/rest/muse/harmonization
+    description: Public tunnel to the local Boomi Atom (port 9092). Replace before importing.
+security:
+  - basicAuth: []
+paths:
+  /runHarmonization:
+    post:
+      operationId: runHarmonization
+      summary: Run the full harmonization
+      description: >
+        Loads Shopify and AWS Marketplace into Data Hub, pushes the harmonized price and SKU back to
+        both channels, exports the golden records and runs the data-quality tests. Takes about 30 to
+        60 seconds. If a test run is already active the answer has status in_progress.
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+      responses:
+        "200":
+          description: Result of the run
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RunSummary"
+  /changeShopifyPrice:
+    post:
+      operationId: changeShopifyPrice
+      summary: Change the Shopify price of one product
+      description: >
+        Sets the price of the product with the given GTIN in the Shopify development store.
+        The price must be a positive number with at most two decimals. Only demo products can be
+        changed. Run the harmonization afterwards to see the change flow through.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [gtin, price]
+              properties:
+                gtin:
+                  type: string
+                  description: 13-digit GTIN of the product
+                  example: "0812345002010"
+                price:
+                  type: string
+                  description: New price, for example 9.99
+                  example: "9.99"
+      responses:
+        "200":
+          description: The price was changed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  gtin: {type: string}
+                  price: {type: string}
+        "400":
+          description: The price is not a positive number with at most two decimals
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        "404":
+          description: No demo product has that GTIN
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  /showElementaryResults:
+    get:
+      operationId: showElementaryResults
+      summary: Show the latest data-quality results
+      description: >
+        Returns the latest dbt and Elementary test summary: how many checks passed, how many
+        records were flagged (price drift between channels, unmatched marketplace listings), and
+        a link to the full report. Returns 404 with a message if no run has happened yet.
+      responses:
+        "200":
+          description: Latest summary
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RunSummary"
+components:
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic
+  schemas:
+    RunSummary:
+      type: object
+      properties:
+        status:
+          type: string
+          enum: [ok, in_progress, failed]
+        tests_passed: {type: integer}
+        tests_failed:
+          type: integer
+          description: Number of records flagged by the checks
+        failing:
+          type: array
+          items: {type: string}
+          description: Names of the checks that flagged records
+        report_url:
+          type: string
+    Error:
+      type: object
+      properties:
+        error: {type: string}

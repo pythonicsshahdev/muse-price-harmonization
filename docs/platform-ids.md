@@ -117,3 +117,16 @@ Task 9 DONE 2026-11-18. HARM - Outbound Push v2 = Branch: (1) golden query -> AW
 | HARM - Golden Product Upsert Request / (No AWS SKU) Request | `47357409-6898-448c-bcda-e0a86117a3bb` / `5f381a60-d134-409e-9605-8b68eb33794a` |
 | HARM - Map Golden to Postgres Row / (No AWS SKU) | `bed96e70-8c11-4973-bf38-6b80354264ca` / `47ec018a-8d16-4d7e-85f4-ca5083d969e8` |
 Verified: 12 rows in `public.harm_golden_products`, harmonized_sku = canonical for all, NULL aws_sku for the 2 unmatched; re-run keeps 12.
+
+## Task 13 components (built 2026-11-18; endpoints awaiting auth to test)
+| Component | ID |
+|---|---|
+| HARM - Muse API (API Service Component, base path `muse`, routes below `/ws/rest/muse/harmonization/`) | `ac1ad2c0-48de-4100-9163-246dcc35b844` |
+| HARM - Run Harmonization (POST `runHarmonization`) | `d96fad04-17c0-45af-a317-a7fb04ece1ab` |
+| HARM - Change Shopify Price API (POST `changeShopifyPrice`) | `c2ed2b97-65bf-4f99-903b-683afc992649` |
+| HARM - Show Elementary Results API (GET `showElementaryResults`) | `596967b0-f95b-4ad8-ac2f-93b7497fa206` |
+| WSS ops: Run / Change Price / Show Results | `b16dfd0e-a0ad-4265-961f-84753359c290` / `c02fae7a-29c1-4516-bbe9-3e00972a2ece` / `c5afbf13-1be7-4733-94d9-a1208eaddbca` |
+| HARM - Change Price Request (JSON profile) | `767bc5d2-c4ca-4757-94ea-c0a0b0c1105f` |
+| HARM - Elementary Run / Results (REST ops) | `01f6f854-c5c7-44cf-82d8-f487dcb69412` / `283abeb1-feff-471c-87c3-17f57c138a91` |
+
+Runtime facts found 2026-11-18: the Atom is the Docker container `Boomi_Runtime` (boomi/atom), shared web server on container port 8078 (not published) and 9092 (published to the Mac as `localhost:9092`); `localhost:8078` on the Mac is an unrelated SSH tunnel. Requests currently return 401: the web server needs Basic credentials (`SERVER_TOKEN` in `.env` is empty). Muse is Meta's hosted agent, so it needs a public tunnel to port 9092. OpenAPI file for Muse: `docs/muse/openapi.yaml` (set the tunnel host in `servers`).

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bns:Component xmlns:bns="http://api.platform.boomi.com/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" componentId="767bc5d2-c4ca-4757-94ea-c0a0b0c1105f" name="HARM - Change Price Request" type="profile.json" folderId="Rjo4OTczNjc5">
+  <bns:encryptedValues/>
+  <bns:description>Body of POST /changeShopifyPrice: {"gtin": "...", "price": "9.99"}. Both strings so bad input like "abc" parses and can be rejected with a 400. | built with boomi-companion v1.0.107</bns:description>
+  <bns:object>
+    <JSONProfile strict="false">
+      <DataElements>
+        <JSONRootValue dataType="character" isMappable="true" isNode="true" key="1" name="Root"><DataFormat><ProfileCharacterFormat/></DataFormat>
+          <JSONObject isMappable="false" isNode="true" key="2" name="Object">
+            <JSONObjectEntry dataType="character" isMappable="true" isNode="true" key="3" name="gtin"><DataFormat><ProfileCharacterFormat/></DataFormat></JSONObjectEntry>
+            <JSONObjectEntry dataType="character" isMappable="true" isNode="true" key="4" name="price"><DataFormat><ProfileCharacterFormat/></DataFormat></JSONObjectEntry>
+          </JSONObject>
+          <Qualifiers><QualifierList/></Qualifiers>
+        </JSONRootValue>
+      </DataElements>
+      <tagLists/>
+    </JSONProfile>
+  </bns:object>
+</bns:Component>
