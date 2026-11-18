@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bns:Component xmlns:bns="http://api.platform.boomi.com/" componentId="bde3e0b2-2e53-4c6d-bcaf-ceb7a077c1b9" folderId="Rjo4OTczNjc5" name="HARM - Map AWSMP to Product Batch (No GTIN)" type="transform.map">
+  <bns:description>built with boomi-companion v1.0.107</bns:description><bns:object>
+    <Map fromProfile="6e9eb001-369c-4523-ba68-2ca6089dc17f" toProfile="10abde49-c279-440c-b3bf-e8a068d6a6b3">
+      <Mappings><Mapping fromKey="11" fromType="profile" toKey="4" toType="profile"/><Mapping fromKey="10" fromType="profile" toKey="7" toType="profile"/><Mapping fromKey="13" fromType="profile" toKey="9" toType="profile"/><Mapping fromKey="11" fromType="profile" toKey="11" toType="profile"/></Mappings>
+      <Functions/>
+      <Defaults><Default toKey="2" value="aws_marketplace"/></Defaults>
+      <DocumentCacheJoins/>
+    </Map>
+  </bns:object>
+</bns:Component>

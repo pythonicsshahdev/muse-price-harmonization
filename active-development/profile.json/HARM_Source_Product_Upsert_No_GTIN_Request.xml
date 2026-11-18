@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bns:Component xmlns:bns="http://api.platform.boomi.com/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" componentId="8d37e179-d606-4aef-8d22-72a53b7c916b" name="HARM - Source Product Upsert (No GTIN) Request" type="profile.json" folderId="Rjo4OTczNjc5">
+  <bns:encryptedValues/>
+  <bns:description>DO NOT RE-SORT. Order must match the ? placeholders in HARM - Postgres Upsert Source Product (No GTIN): source, source_key, name, price. Used when a channel listing has no GTIN, because DB V2 binds positionally and a missing field shifts the parameters. | built with boomi-companion v1.0.107</bns:description>
+  <bns:object>
+    <JSONProfile strict="false">
+      <DataElements>
+        <JSONRootValue dataType="character" isMappable="true" isNode="true" key="1" name="Root"><DataFormat><ProfileCharacterFormat/></DataFormat>
+          <JSONObject isMappable="false" isNode="true" key="2" name="Object"><JSONObjectEntry dataType="character" isMappable="true" isNode="true" key="3" name="source"><DataFormat><ProfileCharacterFormat/></DataFormat></JSONObjectEntry><JSONObjectEntry dataType="character" isMappable="true" isNode="true" key="4" name="source_key"><DataFormat><ProfileCharacterFormat/></DataFormat></JSONObjectEntry><JSONObjectEntry dataType="character" isMappable="true" isNode="true" key="5" name="name"><DataFormat><ProfileCharacterFormat/></DataFormat></JSONObjectEntry><JSONObjectEntry dataType="number" isMappable="true" isNode="true" key="6" name="price"><DataFormat><ProfileNumberFormat numberFormat=""/></DataFormat></JSONObjectEntry></JSONObject>
+          <Qualifiers><QualifierList/></Qualifiers>
+        </JSONRootValue>
+      </DataElements>
+      <tagLists/>
+    </JSONProfile>
+  </bns:object>
+</bns:Component>

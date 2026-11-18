@@ -82,3 +82,16 @@ Shopify op notes: by default the response omits product `title`, `vendor`, `stat
 | HARM - Map Shopify to Source Product Row | `bf6bd6dd-ac56-4b8f-9fc7-86d474a4f696` |
 
 Task 7 DataHub half verified 2026-11-17: 12 `shopify` records posted, 12 golden, 0 quarantine, all match the oracle; shopify initial load FINISHED. Postgres branch verified too: 12 `shopify` rows in `public.harm_source_products` match the oracle; re-run is idempotent. The probe process (`2c0e066d...`) is undeployed; delete it in the UI.
+
+## Task 8 components (done 2026-11-18)
+| Component | ID |
+|---|---|
+| HARM - Inbound AWS Marketplace (process; pages 5 per page via a loop-back Decision on DPP_NEXT_TOKEN) | `d702f13c-063a-4304-909e-b98ee421b7d3` |
+| HARM - AWSMP ListEntities / DescribeEntity (REST ops) | `e12fc0e5-5f5a-422f-b47d-bd48ea7b3962` / `864d854b-4831-492d-8ba5-3ca7c8007212` |
+| HARM - AWSMP ListEntities Response / DescribeEntity Response (JSON profiles) | `e429f608-9b3a-49e5-8f6d-1c323a2ac4f4` / `6e9eb001-369c-4523-ba68-2ca6089dc17f` |
+| HARM - Map AWSMP to Product Batch / (No GTIN) | `4001304d-343f-4ceb-8bf4-7aa74ba4ea01` / `bde3e0b2-2e53-4c6d-bcaf-ceb7a077c1b9` |
+| HARM - Map AWSMP to Source Product Row / (No GTIN) | `46382f14-ec18-4757-ab1a-a810d25daa08` / `32ddbfee-d829-49bc-b505-6b06fdf80143` |
+| HARM - Source Product Upsert (No GTIN) Request (4 fields) | `8d37e179-d606-4aef-8d22-72a53b7c916b` |
+| HARM - Postgres Upsert Source Product (No GTIN) (4 `?`) | `008e91f9-8e42-40e3-978e-f0e5b5a48d87` |
+
+Verified: 12 `aws_marketplace` rows in `public.harm_source_products` (PF-0001 gtin NULL, PF-0002 gtin kept as received); DataHub 12 golden (10 with `aws_sku`), quarantine exactly 2 x REQUIRED_FIELD, drift GTINs keep the Shopify price; aws_marketplace initial load FINISHED. Why two Postgres operations: DB V2 binds `?` positionally, so a missing GTIN shifts the parameters ("No value specified for parameter 5"); a GTIN-less listing uses the 4-field operation instead.

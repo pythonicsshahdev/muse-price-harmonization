@@ -185,12 +185,12 @@
 - Consumes: `HARM - AWSMP Connection`, Task 7 conventions.
 - Produces: process that pages `ListEntities` until `NextToken` is null (handles an empty list), describes each entity, computes `harmonized_sku` (skipped when GTIN is missing or malformed so the record quarantines), posts with `src="aws_marketplace"`, and upserts `public.harm_source_products` with `source='aws_marketplace'`, `source_key` = AWS SKU.
 
-- [ ] **Step 1: Build and push** the components.
-- [ ] **Step 2: Enable initial load** for `aws_marketplace` (only after Task 7 Step 5 finished).
-- [ ] **Step 3: Run once.** Expected: COMPLETE.
-- [ ] **Step 4: Verify.** Quarantine query returns exactly 2 entries (one REQUIRED_FIELD, one for the malformed GTIN) and none with cause POSSIBLE_DUPLICATE; golden query returns 12 records, 10 with `aws_sku` set; for the 3 drift GTINs the golden `price` equals the Shopify price (Shopify ranked first). `public.harm_source_products` has 12 `aws_marketplace` rows.
-- [ ] **Step 5: Finish initial load.**
-- [ ] **Step 6: Commit.**
+- [x] **Step 1: Build and push** the components.
+- [x] **Step 2: Enable initial load** for `aws_marketplace` (only after Task 7 Step 5 finished).
+- [x] **Step 3: Run once.** Expected: COMPLETE.
+- [x] **Step 4: Verify.** Quarantine query returns exactly 2 entries, both REQUIRED_FIELD (a missing GTIN, and a malformed one that the process sends without a GTIN) and none with cause POSSIBLE_DUPLICATE; golden query returns 12 records, 10 with `aws_sku` set; for the 3 drift GTINs the golden `price` equals the Shopify price (Shopify ranked first). `public.harm_source_products` has 12 `aws_marketplace` rows.
+- [x] **Step 5: Finish initial load.**
+- [x] **Step 6: Commit.**
 
 ### Task 9: Outbound push process
 
