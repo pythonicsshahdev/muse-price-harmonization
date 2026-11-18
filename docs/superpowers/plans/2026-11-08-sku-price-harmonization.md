@@ -273,8 +273,8 @@
 **Interfaces:**
 - Produces: `scripts/reset.sh` that restarts `awsmp` (`docker-compose restart awsmp`), runs `python3 seed/shopify_seed.py reset`, truncates `public.harm_source_products` and `public.harm_golden_products`, and exits non-zero on any failure. DataHub golden records are not reset.
 
-- [ ] **Step 1: Write** `scripts/reset.sh` and run it; expected exit 0.
-- [ ] **Step 2: Walk the spec's flow from Muse:** reset; run harmonization; show matched and quarantined products; change one Shopify price; run again; confirm the AWS Marketplace price follows; show Elementary results; open the MetaHub terms.
-- [ ] **Step 3: Write** `docs/runbook.md`: start commands, ports, the reset command, the three Muse requests, the known quirks from Global Constraints, and a short "Adding a vertical" section (new folder under `seed/packs/` with `products.json` and `glossary.json`, a new DataHub model, new dbt tests; containers and Boomi export pattern are reused).
-- [ ] **Step 4: Update memory** note `project_sku_price_harmonization_demo.md` with built component names and IDs.
-- [ ] **Step 5: Commit.**
+- [x] **Step 1: Write** `scripts/reset.sh` and run it; expected exit 0.
+- [x] **Step 2: Walk the spec's flow from Muse:** reset; run harmonization; show matched and quarantined products; change one Shopify price; run again; confirm the AWS Marketplace price follows; show Elementary results; open the MetaHub terms.
+- [x] **Step 3: Write** `docs/runbook.md`: start commands, ports, the reset command, the three Muse requests, the known quirks from Global Constraints, and a short "Adding a vertical" section (new folder under `seed/packs/` with `products.json` and `glossary.json`, a new DataHub model, new dbt tests; containers and Boomi export pattern are reused).
+- [x] **Step 4: Update memory** note `project_sku_price_harmonization_demo.md` with built component names and IDs.
+- [x] **Step 5: Commit.**
