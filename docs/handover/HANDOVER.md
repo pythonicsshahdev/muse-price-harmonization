@@ -84,7 +84,7 @@ scripts/               reset.sh, skill-paths.sh (locates the Boomi skill scripts
 seed/                  canonical dataset (packs/cpg), Shopify seed, MetaHub seed, tests
 ```
 
-56 automated tests pass (`python3 -m pytest`): the dataset oracle, the Shopify seed, the AWS mock,
+66 automated tests pass (`python3 -m pytest`): the dataset oracle, the Shopify seed, the AWS mock,
 the runner, and the MetaHub seed.
 
 ---
@@ -124,7 +124,7 @@ Trim to 8, then String Concat with `CPG-`). No Groovy anywhere.
 (each channel listing against the golden price) and `fct_unmatched_products` (AWS listings no golden
 record claims). Tests: `price_within_tolerance` (named `price_drift_between_channels`, 1 percent),
 `no_rows` (named `unmatched_aws_listings`), `not_null` and `unique` on the golden GTIN, and an
-Elementary freshness check. The runner reports `tests_failed` as the **number of flagged rows**, not
+Elementary freshness check. The runner also returns a `details` section with the flagged rows themselves (for each drifted product: GTIN, name, channel price, golden price, percentage gap; and each unmatched AWS listing), read from the dbt marts after the tests, so Muse can say which products and by how much. A problem reading them never fails a run. The runner reports `tests_failed` as the **number of flagged rows**, not
 the number of failed tests, so seed data gives 5 (3 drifts + 2 unmatched). dbt models are in schema
 `harm`, Elementary in `harm_elementary`.
 
@@ -188,7 +188,7 @@ runner), REST/DB V2/native operations, JSON and XML profiles, maps, the UDF. See
 | Two Postgres operations for missing GTIN / AWS SKU | The Database V2 connector binds `?` positionally; a missing field shifts the parameters. |
 | Native Shopify connector with OAuth authorization code | Legacy custom apps can no longer be created. The Dev Dashboard app's App URL host had to be set to `platform.boomi.com` and the Boomi callback added as a redirect URL. |
 | API Management key via gateway for Muse | Muse is a hosted client and needs a public, authenticated door. |
-| Runbook, reset script, 56 tests | The POC must be repeatable; resetting must be easy. |
+| Runbook, reset script, 66 tests | The POC must be repeatable; resetting must be easy. |
 
 ---
 

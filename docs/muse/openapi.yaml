@@ -86,7 +86,8 @@ paths:
       description: >
         Returns the latest dbt and Elementary test summary: how many checks passed, how many
         records were flagged (price drift between channels, unmatched marketplace listings), and
-        a link to the full report. Returns 404 with a message if no run has happened yet.
+        a link to the full report, and the records behind the counts (which products drifted and by how much,
+        and which AWS listings are unmatched). If no run has happened yet it answers with a message to run first.
       responses:
         "200":
           description: Latest summary
@@ -134,6 +135,33 @@ components:
           description: Names of the checks that flagged records
         report_url:
           type: string
+        details:
+          type: object
+          nullable: true
+          description: The records behind the counts, so you can say which products drifted and by how much
+          properties:
+            price_drift:
+              type: array
+              description: Matched products whose marketplace price differs from the golden price by more than 1 percent
+              items:
+                type: object
+                properties:
+                  gtin: {type: string}
+                  name: {type: string}
+                  channel: {type: string, description: The channel whose price differs}
+                  channel_price: {type: string}
+                  golden_price: {type: string, description: The Shopify price, which wins}
+                  variance_pct: {type: string, description: Percent above (positive) or below the golden price}
+            unmatched_listings:
+              type: array
+              description: AWS Marketplace listings no golden record claims, usually because the GTIN is missing or malformed
+              items:
+                type: object
+                properties:
+                  aws_sku: {type: string}
+                  gtin: {type: string, nullable: true, description: The GTIN as listed, if any}
+                  name: {type: string}
+                  price: {type: string}
     Glossary:
       type: object
       properties:

@@ -16,6 +16,7 @@ def client(tmp_path, monkeypatch):
     monkeypatch.setattr(runner, "RUN_RESULTS", tmp_path / "run_results.json")
     monkeypatch.setattr(runner, "REPORT", tmp_path / "elementary_report.html")
     monkeypatch.setattr(runner, "_latest", None)
+    monkeypatch.setattr(runner.details, "fetch_details", lambda: {"price_drift": [], "unmatched_listings": []})
     return TestClient(runner.app)
 
 
@@ -83,3 +84,27 @@ def test_dbt_run_crash_reports_failed(client, monkeypatch):
     body = client.post("/run").json()
     assert body["status"] == "failed"
     assert "connection refused" in body["error"]
+
+
+def test_run_includes_the_flagged_rows(client, monkeypatch):
+    flagged = {
+        "price_drift": [{"gtin": "0812345001020", "name": "Sparkling Water Berry 12-Pack", "channel": "aws_marketplace",
+                         "channel_price": "6.49", "golden_price": "5.99", "variance_pct": "8.35"}],
+        "unmatched_listings": [{"aws_sku": "AWSMP-PF-0001", "name": "Protein Bar", "gtin": None, "price": "15.49"}],
+    }
+    monkeypatch.setattr(runner.details, "fetch_details", lambda: flagged)
+    monkeypatch.setattr(runner.subprocess, "run", _fake_dbt([_result("test.harm.t", "pass")]))
+    body = client.post("/run").json()
+    assert body["details"] == flagged
+    assert client.get("/results").json()["details"] == flagged
+
+
+def test_a_details_problem_does_not_fail_the_run(client, monkeypatch):
+    def boom():
+        raise RuntimeError("database unreachable")
+    monkeypatch.setattr(runner.details, "fetch_details", boom)
+    monkeypatch.setattr(runner.subprocess, "run", _fake_dbt([_result("test.harm.t", "pass")]))
+    body = client.post("/run").json()
+    assert body["status"] == "ok"
+    assert body["details"] is None
+    assert "database unreachable" in body["details_error"]

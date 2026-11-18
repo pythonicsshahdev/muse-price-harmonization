@@ -41,7 +41,7 @@ git clone <repo-url> harmonization-poc && cd harmonization-poc
 git checkout sku-price-harmonization-poc
 cp .env.example .env              # then fill it in as you go; .env is git-ignored
 python3 -m pip install -r requirements-dev.txt
-python3 -m pytest -q              # expect 56 passed (all offline, no accounts needed)
+python3 -m pytest -q              # expect 66 passed (all offline, no accounts needed)
 ```
 
 Fill `.env` in the order of this guide. Check what Boomi Companion can see with
@@ -246,7 +246,7 @@ your own browser.
 
 ## 11. Verification checklist (all should be true)
 
-- [ ] `python3 -m pytest -q` passes (56 tests)
+- [ ] `python3 -m pytest -q` passes (66 tests)
 - [ ] `curl localhost:4120/health` and `localhost:4121/health` return ok
 - [ ] `python3 seed/shopify_seed.py check` reports 12 products with seed prices
 - [ ] Data Hub: model deployed, 12 golden records, 2 quarantine entries (`REQUIRED_FIELD`)

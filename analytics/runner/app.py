@@ -15,6 +15,7 @@ import requests
 from fastapi import FastAPI
 from fastapi.responses import FileResponse, JSONResponse
 
+import details
 import glossary
 
 PROJECT_DIR = Path(os.environ.get("DBT_PROJECT_DIR", "/app"))
@@ -65,6 +66,13 @@ def run():
             _latest = _summarize()
         except (OSError, KeyError, ValueError) as exc:
             _latest = {"status": "failed", "error": f"no dbt test results: {exc}"}
+            return _latest
+        # Which products drifted and by how much. Never allowed to fail the run.
+        try:
+            _latest["details"] = details.fetch_details()
+        except Exception as exc:  # noqa: BLE001 - any reason is reported, not raised
+            _latest["details"] = None
+            _latest["details_error"] = str(exc)
         return _latest
     finally:
         _lock.release()

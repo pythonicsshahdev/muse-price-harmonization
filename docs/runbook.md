@@ -26,7 +26,7 @@ API Management key in the `x-api-key` header (`HARM_MUSE_API_KEY` in `.env`; nev
 |---|---|---|
 | "Run the harmonization" | `POST /ws/rest/muse/harmonization/runHarmonization` | Loads Shopify and AWS into Data Hub, pushes the golden price and SKU back, exports to Postgres, runs the dbt/Elementary checks. 60 to 70 seconds. A second run at the same time answers `in_progress`. |
 | "Change the price of <product> to 9.99" | `POST .../changeShopifyPrice` `{"gtin","price"}` | Sets the Shopify price by GTIN. 400 for a price that is not a positive number with at most 2 decimals; 404 for an unknown GTIN. Only products tagged `harmonization-poc` are touched. |
-| "What did the data-quality checks find?" | `GET .../showElementaryResults` | The latest summary: checks passed, records flagged, which checks failed. |
+| "What did the data-quality checks find?" | `GET .../showElementaryResults` | The latest summary: checks passed, records flagged, which checks failed, plus the records behind them (`details`: which products drifted and by how much, which AWS listings are unmatched). |
 | "What does Price Authority mean?" | `GET .../showGlossary` | The four endorsed MetaHub terms with plain-text definitions, read live from MetaHub (via the runner's `/glossary`). |
 
 Demo beat: reset, run (5 flagged: 3 price drifts + 2 unmatched listings), change one Shopify price,

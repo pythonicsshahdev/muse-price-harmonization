@@ -149,3 +149,5 @@ Known gap: the `report_url` in responses is `http://localhost:4121/report`, whic
 | HARM - WSS Show Glossary (listener op) | `a0b89f92-3a36-4b11-993c-6d3b8278a43d` |
 | HARM - Elementary Glossary (REST op, GET `/glossary` on the runner) | `bd93e36e-4ea4-44c5-9e2e-5dda8e3ac6cb` |
 `HARM - Muse API` is now v3 with a fourth route. The runner's `GET /glossary` reads MetaHub (JWT from the Boomi API token; associations for the CPG Product model, then each term's content). Verified through the public gateway: 200, 4 terms with definitions.
+
+Results now include `details` (price_drift with GTIN, name, channel price, golden price, percent gap; unmatched_listings) from `analytics/runner/details.py`. Verified through the public gateway after a run: 3 drifts (10.03, 8.35, 8.34 percent) and 2 unmatched listings.
