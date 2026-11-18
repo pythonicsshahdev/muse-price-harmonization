@@ -1,0 +1,35 @@
+version: 2
+
+sources:
+  - name: warehouse
+    schema: public
+    tables:
+      - name: harm_source_products
+      - name: harm_golden_products
+
+models:
+  - name: stg_golden_products
+    columns:
+      - name: gtin
+        tests:
+          - not_null
+          - unique
+
+  - name: stg_source_products
+    tests:
+      - elementary.freshness_anomalies:
+          timestamp_column: loaded_at
+
+  - name: fct_price_variance
+    columns:
+      - name: channel_price
+        tests:
+          - price_within_tolerance:
+              name: price_drift_between_channels
+              golden_column: golden_price
+              tolerance_pct: 1
+
+  - name: fct_unmatched_products
+    tests:
+      - no_rows:
+          name: unmatched_aws_listings

@@ -1,0 +1,19 @@
+name: harmonization
+version: "1.0.0"
+config-version: 2
+profile: harmonization
+
+model-paths: ["models"]
+test-paths: ["tests"]
+macro-paths: ["macros"]
+clean-targets: ["target", "dbt_packages"]
+
+models:
+  harmonization:
+    staging:
+      +materialized: view
+    marts:
+      +materialized: table
+  elementary:
+    # Elementary's own tables land in <profile schema>_elementary (harm_elementary).
+    +schema: "elementary"

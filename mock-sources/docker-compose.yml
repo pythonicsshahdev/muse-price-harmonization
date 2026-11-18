@@ -1,0 +1,44 @@
+name: harmonization-poc
+
+services:
+  awsmp:
+    build: ./awsmp
+    ports:
+      - "4120:4020"
+    # Mounted read-only so the dataset stays in one place (seed/packs/cpg).
+    # Data loads at container start; edit it, then: docker-compose restart awsmp
+    volumes:
+      - ../seed/packs/cpg/products.json:/app/data/products.json:ro
+    restart: unless-stopped
+
+  postgres:
+    image: postgres:16
+    ports:
+      - "5442:5432"
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-harmonization}
+      POSTGRES_USER: ${POSTGRES_USER:-harm}
+      # Run compose with the workspace .env:  docker-compose --env-file ../.env up -d
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?set POSTGRES_PASSWORD in .env}
+    volumes:
+      - ./postgres/init:/docker-entrypoint-initdb.d:ro
+      - pgdata:/var/lib/postgresql/data
+    restart: unless-stopped
+
+  elementary:
+    build: ../analytics
+    ports:
+      - "4121:4021"
+    environment:
+      # rds (default) = shared RDS warehouse; local = the postgres container above.
+      WAREHOUSE: ${WAREHOUSE:-rds}
+      RDS_POSTGRES_JDBC_URL: ${RDS_POSTGRES_JDBC_URL:-}
+      RDS_POSTGRES_USERNAME: ${RDS_POSTGRES_USERNAME:-}
+      RDS_POSTGRES_PASSWORD: ${RDS_POSTGRES_PASSWORD:-}
+      POSTGRES_DB: ${POSTGRES_DB:-harmonization}
+      POSTGRES_USER: ${POSTGRES_USER:-harm}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-}
+    restart: unless-stopped
+
+volumes:
+  pgdata:

@@ -1,0 +1,29 @@
+# Both profiles read the same warehouse. entrypoint.py resolves the
+# WAREHOUSE_* variables from the RDS or local Postgres keys in .env.
+harmonization:
+  target: default
+  outputs:
+    default:
+      type: postgres
+      host: "{{ env_var('WAREHOUSE_HOST') }}"
+      port: "{{ env_var('WAREHOUSE_PORT') | as_number }}"
+      dbname: "{{ env_var('WAREHOUSE_DB') }}"
+      user: "{{ env_var('WAREHOUSE_USER') }}"
+      password: "{{ env_var('WAREHOUSE_PASSWORD') }}"
+      schema: harm
+      threads: 2
+      connect_timeout: 10
+
+elementary:
+  target: default
+  outputs:
+    default:
+      type: postgres
+      host: "{{ env_var('WAREHOUSE_HOST') }}"
+      port: "{{ env_var('WAREHOUSE_PORT') | as_number }}"
+      dbname: "{{ env_var('WAREHOUSE_DB') }}"
+      user: "{{ env_var('WAREHOUSE_USER') }}"
+      password: "{{ env_var('WAREHOUSE_PASSWORD') }}"
+      schema: harm_elementary
+      threads: 2
+      connect_timeout: 10

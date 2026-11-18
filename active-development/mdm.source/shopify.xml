@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<mdm:CreateSourceRequest xmlns:mdm="http://mdm.api.platform.boomi.com/">
+    <mdm:name>Shopify</mdm:name>
+    <mdm:sourceId>shopify</mdm:sourceId>
+    <mdm:entityIdUrl>https://boomi-demo-store.myshopify.com/admin/products/{id}</mdm:entityIdUrl>
+</mdm:CreateSourceRequest>

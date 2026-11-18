@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<mdm:CreateModelRequest xmlns:mdm="http://mdm.api.platform.boomi.com/">
+    <mdm:name>CPGProduct</mdm:name>
+    <mdm:fields>
+        <mdm:field name="gtin"           uniqueId="GTIN"          type="STRING" maxLength="13"  repeatable="false" required="true"/>
+        <mdm:field name="harmonized_sku" uniqueId="HARMONIZEDSKU" type="STRING" maxLength="20"  repeatable="false" required="false"/>
+        <mdm:field name="name"           uniqueId="NAME"          type="STRING" maxLength="255" repeatable="false" required="false"/>
+        <mdm:field name="brand"          uniqueId="BRAND"         type="STRING" maxLength="100" repeatable="false" required="false"/>
+        <mdm:field name="price"          uniqueId="PRICE"         type="FLOAT"                  repeatable="false" required="false"/>
+        <mdm:field name="shopify_sku"    uniqueId="SHOPIFYSKU"    type="STRING" maxLength="50"  repeatable="false" required="false"/>
+        <mdm:field name="aws_sku"        uniqueId="AWSSKU"        type="STRING" maxLength="50"  repeatable="false" required="false"/>
+    </mdm:fields>
+    <mdm:sources>
+        <mdm:source id="shopify" type="Both" allowMultipleLinks="false" default="true">
+            <mdm:inbound>
+                <mdm:createApproval required="false"/>
+                <mdm:updateApproval required="false"/>
+                <mdm:updateApprovalWithBaseValue>false</mdm:updateApprovalWithBaseValue>
+                <mdm:endDateApproval required="false"/>
+                <mdm:earlyChangeDetectionEnabled>false</mdm:earlyChangeDetectionEnabled>
+            </mdm:inbound>
+            <mdm:outbound>
+                <mdm:channelUpdatesFields>All</mdm:channelUpdatesFields>
+                <mdm:sendCreates>false</mdm:sendCreates>
+            </mdm:outbound>
+        </mdm:source>
+        <mdm:source id="aws_marketplace" type="Both" allowMultipleLinks="false" default="false">
+            <mdm:inbound>
+                <mdm:createApproval required="false"/>
+                <mdm:updateApproval required="false"/>
+                <mdm:updateApprovalWithBaseValue>false</mdm:updateApprovalWithBaseValue>
+                <mdm:endDateApproval required="false"/>
+                <mdm:earlyChangeDetectionEnabled>false</mdm:earlyChangeDetectionEnabled>
+            </mdm:inbound>
+            <mdm:outbound>
+                <mdm:channelUpdatesFields>All</mdm:channelUpdatesFields>
+                <mdm:sendCreates>false</mdm:sendCreates>
+            </mdm:outbound>
+        </mdm:source>
+    </mdm:sources>
+    <mdm:dataQualitySteps/>
+    <mdm:recordTitle>
+        <mdm:titleParameters>
+            <mdm:parameter uniqueId="NAME"/>
+        </mdm:titleParameters>
+    </mdm:recordTitle>
+    <mdm:matchRules>
+        <mdm:matchRule topLevelOperator="AND">
+            <mdm:simpleExpression>
+                <mdm:fieldUniqueId>GTIN</mdm:fieldUniqueId>
+            </mdm:simpleExpression>
+        </mdm:matchRule>
+    </mdm:matchRules>
+    <mdm:tags/>
+</mdm:CreateModelRequest>

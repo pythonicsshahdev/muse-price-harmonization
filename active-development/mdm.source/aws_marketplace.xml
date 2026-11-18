@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<mdm:CreateSourceRequest xmlns:mdm="http://mdm.api.platform.boomi.com/">
+    <mdm:name>AWS Marketplace</mdm:name>
+    <mdm:sourceId>aws_marketplace</mdm:sourceId>
+    <mdm:entityIdUrl></mdm:entityIdUrl>
+</mdm:CreateSourceRequest>
