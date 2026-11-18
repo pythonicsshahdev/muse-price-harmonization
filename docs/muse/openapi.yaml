@@ -7,10 +7,10 @@ info:
     one reads a Shopify development store and an AWS Marketplace mock, harmonizes them in Boomi
     Data Hub, and checks the result with dbt and Elementary. Prices are decimal strings.
 servers:
-  - url: https://shahnewapigateway.ngrok.dev/ws/rest/muse/harmonization
-    description: Public ngrok tunnel to the local Boomi Atom web server (port 9092). Requires HTTP Basic credentials.
+  - url: https://shahapigateway.ngrok.devsecops-prod.boomi.com/ws/rest/muse/harmonization
+    description: Public ngrok tunnel to the Boomi API Gateway in front of the local Atom. Every call needs the x-api-key header.
 security:
-  - basicAuth: []
+  - apiKeyAuth: []
 paths:
   /runHarmonization:
     post:
@@ -96,9 +96,11 @@ paths:
                 $ref: "#/components/schemas/RunSummary"
 components:
   securitySchemes:
-    basicAuth:
-      type: http
-      scheme: basic
+    apiKeyAuth:
+      type: apiKey
+      in: header
+      name: x-api-key
+      description: API Management key for the HARM - Muse API plan
   schemas:
     RunSummary:
       type: object
