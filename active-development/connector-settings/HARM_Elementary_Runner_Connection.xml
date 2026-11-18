@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bns:Component xmlns:bns="http://api.platform.boomi.com/"
+               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+               componentId="770b6955-e530-4a4b-bac0-f6fba23bd56c"
+               name="HARM - Elementary Runner Connection"
+               type="connector-settings"
+               subType="officialboomi-X3979C-rest-prod"
+               folderId="Rjo4OTczNjc5">
+  <bns:encryptedValues/>
+  <bns:description>built with boomi-companion v1.0.107</bns:description><bns:object>
+    <GenericConnectionConfig>
+      <field id="url" type="string" value="http://host.docker.internal:4121"/>
+      <field id="auth" type="string" value="NONE"/>
+      <field id="connectTimeout" type="integer" value="-1"/>
+      <field id="readTimeout" type="integer" value="-1"/>
+      <field id="cookieScope" type="string" value="GLOBAL"/>
+      <field id="enableConnectionPooling" type="boolean" value="false"/>
+    </GenericConnectionConfig>
+  </bns:object>
+</bns:Component>

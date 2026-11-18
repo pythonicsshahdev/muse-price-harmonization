@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bns:Component xmlns:bns="http://api.platform.boomi.com/"
+               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+               componentId="2cfb95ba-e422-47cc-8f11-78158250bb88"
+               name="HARM - Postgres Connection"
+               type="connector-settings"
+               subType="officialboomi-X3979C-dbv2da-prod"
+               folderId="Rjo4OTczNjc5">
+  <bns:encryptedValues/>
+  <bns:description>built with boomi-companion v1.0.107</bns:description><bns:object>
+    <GenericConnectionConfig>
+      <field id="url" type="string" value="jdbc:postgresql://postgresql-demo.c9qgul0tizhq.us-east-1.rds.amazonaws.com:5432/postgresdemo?tcpKeepAlive=true"/>
+      <field id="className" type="string" value="org.postgresql.Driver"/>
+      <field id="username" type="string" value="demouser"/>
+      <field id="password" type="password" value=""/>
+      <field id="schemaName" type="string" value="public"/>
+      <field id="enablePooling" type="boolean" value="false"/>
+    </GenericConnectionConfig>
+  </bns:object>
+</bns:Component>

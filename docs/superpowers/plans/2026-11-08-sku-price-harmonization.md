@@ -155,9 +155,9 @@
 **Interfaces:**
 - Produces components (all in folder `SKU Harmonization POC`): `HARM - Shopify Connection` (native Shopify connector if it supports the 24-hour client-credentials token, otherwise an HTTP Client connection with OAuth 2.0 client credentials against `https://{shop}.myshopify.com/admin/oauth/access_token`), `HARM - AWSMP Connection` (HTTP Client, `http://host.docker.internal:4120`), `HARM - Postgres Connection` (DB V2, `host.docker.internal:5442`, db `harmonization`), `HARM - Elementary Runner Connection` (HTTP Client, `http://host.docker.internal:4121`), `HARM - DataHub REST Connection` (from `datahub-connection.sh bootstrap rest`; paths must start with `/mdm/`). Component IDs recorded in `docs/platform-ids.md`.
 
-- [ ] **Step 1: Create the DataHub REST connection:** `bash $DH/datahub-connection.sh bootstrap rest "HARM - DataHub REST Connection" <folder-id>`; note the printed ID.
-- [ ] **Step 2: Build the other four** with the boomi-integration skill (read its connection references first); push with `bash $BI/boomi-component-create.sh <file>`. Put hostnames and credentials in environment extensions, not the component.
-- [ ] **Step 3: Verify.** `bash $BI/boomi-component-search.sh` for the folder lists all five names. Execute the connection check each connector offers (or defer to the first process in Task 7).
+- [x] **Step 1: Create the DataHub REST connection:** `bash $DH/datahub-connection.sh bootstrap rest "HARM - DataHub REST Connection" <folder-id>`; note the printed ID.
+- [x] **Step 2: Build the other four** with the boomi-integration skill (read its connection references first); push with `bash $BI/boomi-component-create.sh <file>`. Put hostnames and credentials in environment extensions, not the component.
+- [x] **Step 3: Verify.** `bash $BI/boomi-component-search.sh` for the folder lists all five names. Execute the connection check each connector offers (or defer to the first process in Task 7).
 - [ ] **Step 4: Commit** the XML and IDs.
 
 ### Task 7: Inbound Shopify process
@@ -169,12 +169,12 @@
 - Consumes: `HARM - Shopify Connection`, `HARM - DataHub REST Connection`, `HARM - Postgres Connection`; universe ID.
 - Produces: process `HARM - Inbound Shopify` that reads products, computes `harmonized_sku` in a Set Properties step (DDP) per the rule in Global Constraints, branches to (a) map to batch XML with `src="shopify"` and POST to `/mdm/universes/{universeId}/records?returnApplicationErrors=true`, and (b) an upsert into `public.harm_source_products` with `source='shopify'`, `source_key` = variant SKU, `gtin` = barcode.
 
-- [ ] **Step 1: Build the components** and push; no Groovy.
-- [ ] **Step 2: Enable initial load:** `bash $DH/datahub-source.sh enable-initial-load --repository <repo> --universe <uid> shopify`.
-- [ ] **Step 3: Run once:** `bash $BI/boomi-test-execute.sh --process-id <id>`. Expected: execution COMPLETE; 12 documents posted.
-- [ ] **Step 4: Verify.** `bash $DH/datahub-quarantine.sh query --universe <uid>` returns no entries; `datahub-golden-record.sh query --universe <uid> active-development/feedback/queries/all-products.xml` returns 12 records with `harmonized_sku` matching `canonical_sku` for each GTIN; `public.harm_source_products` has 12 `shopify` rows.
-- [ ] **Step 5: Finish initial load:** `datahub-source.sh finish-initial-load ...`. Do not re-run the process before this returns. Verify `status` shows INITIAL_LOAD_FINISHED.
-- [ ] **Step 6: Commit.**
+- [x] **Step 1: Build the components** and push; no Groovy.
+- [x] **Step 2: Enable initial load:** `bash $DH/datahub-source.sh enable-initial-load --repository <repo> --universe <uid> shopify`.
+- [x] **Step 3: Run once:** `bash $BI/boomi-test-execute.sh --process-id <id>`. Expected: execution COMPLETE; 12 documents posted.
+- [x] **Step 4: Verify.** `bash $DH/datahub-quarantine.sh query --universe <uid>` returns no entries; `datahub-golden-record.sh query --universe <uid> active-development/feedback/queries/all-products.xml` returns 12 records with `harmonized_sku` matching `canonical_sku` for each GTIN; `public.harm_source_products` has 12 `shopify` rows.
+- [x] **Step 5: Finish initial load:** `datahub-source.sh finish-initial-load ...`. Do not re-run the process before this returns. Verify `status` shows INITIAL_LOAD_FINISHED.
+- [x] **Step 6: Commit.**
 
 ### Task 8: Inbound AWS Marketplace process
 
@@ -243,9 +243,9 @@
 **Interfaces:**
 - Produces: `ensure_glossary(name: str, purpose: str, content_html: str, endorse: bool) -> str` (returns glossary ID; idempotent by name), `associate(glossary_id: str, universe_id: str) -> None` (`assetType: DATAHUB_MODEL`), `get_token() -> str` (refreshes on a 4-minute clock). Terms: Harmonized SKU, Price Authority, Channel Price Variance, Canonical Product ID.
 
-- [ ] **Step 1: Write failing tests** with `responses`: `test_ensure_glossary_reuses_existing_name`, `test_token_refreshes_after_four_minutes` (patched clock), `test_re_endorse_409_is_ignored`, `test_token_request_sends_no_accept_header`.
-- [ ] **Step 2: Run** `python3 -m pytest seed/tests/test_metahub_seed.py -v`. Expected: FAIL; implement, adapting the pattern in `Childrens - Datahub_Healthcare_Usecase /active-development/feedback/metahub_seed.py`. Expected after: 4 passed.
-- [ ] **Step 3: Run live** `python3 seed/metahub_seed.py` twice. Expected: second run creates nothing new. Confirm four ENDORSED terms associated to the `CPG Product` model in the MetaHub UI.
+- [x] **Step 1: Write failing tests** with `responses`: `test_ensure_glossary_reuses_existing_name`, `test_token_refreshes_after_four_minutes` (patched clock), `test_re_endorse_409_is_ignored`, `test_token_request_sends_no_accept_header`.
+- [x] **Step 2: Run** `python3 -m pytest seed/tests/test_metahub_seed.py -v`. Expected: FAIL; implement, adapting the pattern in `Childrens - Datahub_Healthcare_Usecase /active-development/feedback/metahub_seed.py`. Expected after: 4 passed.
+- [x] **Step 3: Run live** `python3 seed/metahub_seed.py` twice. Expected: second run creates nothing new. Confirm four ENDORSED terms associated to the `CPG Product` model in the MetaHub UI.
 - [ ] **Step 4: Commit.**
 
 ### Task 13: Muse trigger APIs

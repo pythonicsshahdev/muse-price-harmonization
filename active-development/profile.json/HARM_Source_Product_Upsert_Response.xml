@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bns:Component xmlns:bns="http://api.platform.boomi.com/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" componentId="0eda0deb-e07b-40a3-b385-e9ea1f3eabe9" name="HARM - Source Product Upsert Response" type="profile.json" folderId="Rjo4OTczNjc5">
+  <bns:encryptedValues/>
+  <bns:description>Standard DB V2 write response. | built with boomi-companion v1.0.107</bns:description>
+  <bns:object>
+    <JSONProfile strict="false">
+      <DataElements>
+        <JSONRootValue dataType="character" isMappable="true" isNode="true" key="1" name="Root">
+          <DataFormat><ProfileCharacterFormat/></DataFormat>
+          <JSONObject isMappable="false" isNode="true" key="2" name="Object"><JSONObjectEntry dataType="character" isMappable="true" isNode="true" key="3" name="Query"><DataFormat><ProfileCharacterFormat/></DataFormat></JSONObjectEntry><JSONObjectEntry dataType="character" isMappable="true" isNode="true" key="4" name="Rows Effected"><DataFormat><ProfileCharacterFormat/></DataFormat></JSONObjectEntry><JSONObjectEntry dataType="character" isMappable="true" isNode="true" key="5" name="Status"><DataFormat><ProfileCharacterFormat/></DataFormat></JSONObjectEntry></JSONObject>
+          <Qualifiers><QualifierList/></Qualifiers>
+        </JSONRootValue>
+      </DataElements>
+      <tagLists/>
+    </JSONProfile>
+  </bns:object>
+</bns:Component>
