@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bns:Component xmlns:bns="http://api.platform.boomi.com/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" componentId="e12fc0e5-5f5a-422f-b47d-bd48ea7b3962" name="HARM - AWSMP ListEntities" type="connector-action" subType="officialboomi-X3979C-rest-prod" folderId="Rjo4OTczNjc5">
+  <bns:encryptedValues/>
+  <bns:description>built with boomi-companion v1.0.107</bns:description><bns:object>
+    <Operation returnApplicationErrors="false" trackResponse="false">
+      <Archiving directory="" enabled="false"/>
+      <Configuration>
+        <GenericOperationConfig customOperationType="POST" operationType="EXECUTE">
+          <field id="followRedirects" type="string" value="NONE"/>
+          <field id="path" type="string" value="/ListEntities"/>
+          <field id="queryParameters" type="customproperties"><customProperties></customProperties></field>
+          <field id="requestHeaders" type="customproperties"><customProperties><properties key="Content-Type" value="application/json"/><properties key="Accept" value="application/json"/></customProperties></field>
+          <Options/>
+        </GenericOperationConfig>
+      </Configuration>
+      <Tracking><TrackedFields/></Tracking>
+      <Caching/>
+    </Operation>
+  </bns:object>
+</bns:Component>

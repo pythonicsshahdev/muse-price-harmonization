@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bns:Component xmlns:bns="http://api.platform.boomi.com/"
+               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+               componentId="bdb7bfb9-968b-478c-980c-aa9d3fa8a307"
+               name="HARM - AWSMP Connection"
+               type="connector-settings"
+               subType="officialboomi-X3979C-rest-prod"
+               folderId="Rjo4OTczNjc5">
+  <bns:encryptedValues/>
+  <bns:description>built with boomi-companion v1.0.107</bns:description><bns:object>
+    <GenericConnectionConfig>
+      <field id="url" type="string" value="http://host.docker.internal:4120"/>
+      <field id="auth" type="string" value="NONE"/>
+      <field id="connectTimeout" type="integer" value="-1"/>
+      <field id="readTimeout" type="integer" value="-1"/>
+      <field id="cookieScope" type="string" value="GLOBAL"/>
+      <field id="enableConnectionPooling" type="boolean" value="false"/>
+    </GenericConnectionConfig>
+  </bns:object>
+</bns:Component>

@@ -1,0 +1,136 @@
+{
+  "products": [
+    {
+      "gtin": "0812345001013",
+      "name": "Sparkling Water Lime 12-Pack",
+      "brand": "Brightwell",
+      "shopify_sku": "BW-SPK-LIME-12",
+      "shopify_price": "5.99",
+      "aws_sku": "AWSMP-BW-0001",
+      "aws_name": "Sparkling Water Lime 12-Pack",
+      "aws_price": "5.99",
+      "aws_gtin": "0812345001013"
+    },
+    {
+      "gtin": "0812345001020",
+      "name": "Sparkling Water Berry 12-Pack",
+      "brand": "Brightwell",
+      "shopify_sku": "BW-SPK-BERRY-12",
+      "shopify_price": "5.99",
+      "aws_sku": "AWSMP-BW-0002",
+      "aws_name": "Sparkling Water Berry 12-Pack",
+      "aws_price": "6.49",
+      "aws_gtin": "0812345001020"
+    },
+    {
+      "gtin": "0812345002010",
+      "name": "Cold Brew Coffee 32 oz",
+      "brand": "Northfield Coffee",
+      "shopify_sku": "NF-CB-32",
+      "shopify_price": "7.49",
+      "aws_sku": "AWSMP-NF-0001",
+      "aws_name": "Cold Brew Coffee 32 oz Bottle",
+      "aws_price": "7.49",
+      "aws_gtin": "0812345002010"
+    },
+    {
+      "gtin": "0812345003017",
+      "name": "Oat Milk Original 64 oz",
+      "brand": "Meadowlark",
+      "shopify_sku": "ML-OAT-ORIG-64",
+      "shopify_price": "4.79",
+      "aws_sku": "AWSMP-ML-0001",
+      "aws_name": "Oat Milk Original 64 oz",
+      "aws_price": "4.79",
+      "aws_gtin": "0812345003017"
+    },
+    {
+      "gtin": "0812345003024",
+      "name": "Granola Bars Honey Oat 12-Count",
+      "brand": "Meadowlark",
+      "shopify_sku": "ML-GRN-HO-12",
+      "shopify_price": "5.29",
+      "aws_sku": "AWSMP-ML-0002",
+      "aws_name": "Granola Bars Honey Oat 12-Count",
+      "aws_price": "5.29",
+      "aws_gtin": "0812345003024"
+    },
+    {
+      "gtin": "0812345004014",
+      "name": "Tortilla Chips Sea Salt 11 oz",
+      "brand": "Sunbaked",
+      "shopify_sku": "SB-TRT-SS-11",
+      "shopify_price": "3.99",
+      "aws_sku": "AWSMP-SB-0001",
+      "aws_name": "Tortilla Chips Sea Salt 11 oz",
+      "aws_price": "4.39",
+      "aws_gtin": "0812345004014"
+    },
+    {
+      "gtin": "0812345004021",
+      "name": "Trail Mix Classic 16 oz",
+      "brand": "Sunbaked",
+      "shopify_sku": "SB-TRL-CL-16",
+      "shopify_price": "6.49",
+      "aws_sku": "AWSMP-SB-0002",
+      "aws_name": "Trail Mix Classic 16 oz",
+      "aws_price": "6.49",
+      "aws_gtin": "0812345004021"
+    },
+    {
+      "gtin": "0812345005011",
+      "name": "Dish Soap Citrus 24 oz",
+      "brand": "Clearbrook",
+      "shopify_sku": "CB-DSH-CIT-24",
+      "shopify_price": "3.49",
+      "aws_sku": "AWSMP-CB-0001",
+      "aws_name": "Citrus Dish Soap 24oz",
+      "aws_price": "3.49",
+      "aws_gtin": "0812345005011"
+    },
+    {
+      "gtin": "0812345005028",
+      "name": "Laundry Pods Fresh Linen 42-Count",
+      "brand": "Clearbrook",
+      "shopify_sku": "CB-LDP-FL-42",
+      "shopify_price": "11.99",
+      "aws_sku": "AWSMP-CB-0002",
+      "aws_name": "Laundry Pods Fresh Linen 42-Count",
+      "aws_price": "12.99",
+      "aws_gtin": "0812345005028"
+    },
+    {
+      "gtin": "0812345005035",
+      "name": "Paper Towels 6 Rolls",
+      "brand": "Clearbrook",
+      "shopify_sku": "CB-PTW-6",
+      "shopify_price": "8.99",
+      "aws_sku": "AWSMP-CB-0003",
+      "aws_name": "Paper Towels 6 Rolls",
+      "aws_price": "8.99",
+      "aws_gtin": "0812345005035"
+    },
+    {
+      "gtin": "0812345006018",
+      "name": "Protein Bar Chocolate 12-Count",
+      "brand": "Peakfuel",
+      "shopify_sku": "PF-PRO-CHOC-12",
+      "shopify_price": "14.99",
+      "aws_sku": "AWSMP-PF-0001",
+      "aws_name": "Protein Bar Chocolate 12-Count",
+      "aws_price": "15.49",
+      "aws_gtin": null
+    },
+    {
+      "gtin": "0812345006025",
+      "name": "Energy Drink Citrus 16 oz 12-Pack",
+      "brand": "Peakfuel",
+      "shopify_sku": "PF-ENR-CIT-12",
+      "shopify_price": "18.99",
+      "aws_sku": "AWSMP-PF-0002",
+      "aws_name": "Energy Drink Citrus 16 oz 12-Pack",
+      "aws_price": "19.49",
+      "aws_gtin": "812345006025"
+    }
+  ]
+}

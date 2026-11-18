@@ -1,0 +1,22 @@
+[
+  {
+    "name": "Harmonized SKU",
+    "purpose": "Gives each product one stable identifier across sales channels, so systems and people stop reconciling channel-specific SKUs by hand.",
+    "content_html": "<p>The canonical SKU generated for a product, formed as <code>CPG-</code> plus the last 8 digits of its GTIN. It is stored on the golden record and pushed back to every channel as a separate field. It never replaces a channel's native SKU.</p>"
+  },
+  {
+    "name": "Price Authority",
+    "purpose": "Names which system decides a product's price when channels disagree, so price conflicts resolve the same way every time.",
+    "content_html": "<p>Shopify is the price authority. When Shopify and the AWS Marketplace disagree on price, the Shopify price becomes the golden price and the AWS Marketplace price is aligned to it.</p>"
+  },
+  {
+    "name": "Channel Price Variance",
+    "purpose": "Defines the gap between a channel's price and the golden price, so drift can be monitored and queried directly.",
+    "content_html": "<p>The difference between a channel's listed price and the golden price for the same product, expressed as a percentage of the golden price. Any non-zero variance on a matched product is price drift.</p>"
+  },
+  {
+    "name": "Canonical Product ID",
+    "purpose": "Establishes the shared identifier used to recognise the same product in different channels.",
+    "content_html": "<p>The product's 13-digit GTIN. It is the only match key in DataHub. A record with a missing or malformed GTIN cannot be matched and is quarantined.</p>"
+  }
+]

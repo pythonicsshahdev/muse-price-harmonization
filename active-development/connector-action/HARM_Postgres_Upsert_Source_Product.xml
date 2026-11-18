@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bns:Component xmlns:bns="http://api.platform.boomi.com/"
+               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+               componentId="04c50e22-4b54-436d-b398-d5cfb0c48c69"
+               name="HARM - Postgres Upsert Source Product"
+               type="connector-action"
+               subType="officialboomi-X3979C-dbv2da-prod"
+               folderId="Rjo4OTczNjc5">
+  <bns:encryptedValues/>
+  <bns:description>Standard Insert with ON CONFLICT. Binds positionally: the request profile HARM - Source Product Upsert Request must stay in this order (source, source_key, gtin, name, price). | built with boomi-companion v1.0.107</bns:description>
+  <bns:object>
+    <Operation returnApplicationErrors="false" trackResponse="false">
+      <Archiving directory="" enabled="false"/>
+      <Configuration>
+        <GenericOperationConfig customOperationType="CREATE"
+                                objectTypeId="harm_source_products"
+                                objectTypeName="harm_source_products"
+                                operationType="CREATE"
+                                requestProfile="25c667dd-7d0e-437a-bec0-dc12bc8327ea"
+                                requestProfileType="json"
+                                responseProfile="0eda0deb-e07b-40a3-b385-e9ea1f3eabe9"
+                                responseProfileType="json">
+          <field id="InsertionType" type="string" value="Standard Insert"/>
+          <field id="schemaName" type="string" value=""/>
+          <field id="query" type="string" value="insert into public.harm_source_products (source, source_key, gtin, name, price, loaded_at) values (?, ?, ?, ?, ?, now()) on conflict (source, source_key) do update set gtin = excluded.gtin, name = excluded.name, price = excluded.price, loaded_at = now()"/>
+          <field id="joinTransaction" type="boolean" value="false"/>
+          <field id="CommitOption" type="string" value="Commit By Rows"/>
+          <field id="batchCount" type="integer" value="1"/>
+          <Options/>
+        </GenericOperationConfig>
+      </Configuration>
+      <Tracking><TrackedFields/></Tracking>
+      <Caching/>
+    </Operation>
+  </bns:object>
+</bns:Component>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bns:Component xmlns:bns="http://api.platform.boomi.com/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" componentId="c02fae7a-29c1-4516-bbe9-3e00972a2ece" name="HARM - WSS Change Shopify Price" type="connector-action" subType="wss" folderId="Rjo4OTczNjc5">
+  <bns:encryptedValues/>
+  <bns:description>built with boomi-companion v1.0.107</bns:description>
+  <bns:object>
+    <Operation>
+      <Archiving directory="" enabled="false"/>
+      <Configuration><WebServicesServerListenAction inputType="singlejson" objectName="harmonization" operationType="EXECUTE" outputType="singledata" requestProfile="767bc5d2-c4ca-4757-94ea-c0a0b0c1105f" responseContentType="application/json"/></Configuration>
+      <Tracking><TrackedFields/></Tracking>
+      <Caching/>
+    </Operation>
+  </bns:object>
+</bns:Component>

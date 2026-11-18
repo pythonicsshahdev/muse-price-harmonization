@@ -1,4 +1,18 @@
 # Boomi Integration Project
+
+## This project
+
+A built and verified POC: SKU and price harmonization across Shopify and an AWS Marketplace mock, using Boomi Data Hub,
+MetaHub, dbt and Elementary, driven from Muse. Start with `README.md`, then `docs/handover/HANDOVER.md`. To operate it,
+use `docs/runbook.md` and `bash scripts/reset.sh`. To rebuild it, use `docs/handover/REPLICATION_GUIDE.md`.
+
+- The XML in `active-development/` belongs to one Boomi account: use it as a template, do not push it to another account as it is.
+- Boomi component names start with `HARM - `; their IDs are in `docs/platform-ids.md`.
+- The Database V2 request profiles are order-sensitive; never re-sort them.
+- Never print or commit `.env`. Shared resources (Shopify store, Data Hub repository, warehouse database): touch only the
+  `harmonization-poc` tag, the `cpgproduct` model and the `harm_` tables.
+
+## Boomi Companion template instructions
 Use the `boomi-integration` Boomi skill for all integration tasks. 
 
 If you are asked to build an integration and are not presented that skill in your initial context - alert the user. The skill includes critical information for your project. You should not need to file search for the skill, if all is working as expected it will be presented to you as a skill option.

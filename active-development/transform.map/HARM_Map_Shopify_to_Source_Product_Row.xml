@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bns:Component xmlns:bns="http://api.platform.boomi.com/"
+               componentId="bf6bd6dd-ac56-4b8f-9fc7-86d474a4f696"
+               folderId="Rjo4OTczNjc5"
+               name="HARM - Map Shopify to Source Product Row"
+               type="transform.map">
+  <bns:description>built with boomi-companion v1.0.107</bns:description><bns:object>
+    <Map fromProfile="9f52eea8-7131-499a-90d0-2dcba022808d" toProfile="25c667dd-7d0e-437a-bec0-dc12bc8327ea">
+      <Mappings>
+        <Mapping fromKey="95" fromType="profile" toKey="4" toType="profile"/>
+        <Mapping fromKey="64" fromType="profile" toKey="5" toType="profile"/>
+        <Mapping fromKey="57" fromType="profile" toKey="6" toType="profile"/>
+        <Mapping fromKey="92" fromType="profile" toKey="7" toType="profile"/>
+      </Mappings>
+      <Functions/>
+      <Defaults>
+        <Default toKey="3" value="shopify"/>
+      </Defaults>
+      <DocumentCacheJoins/>
+    </Map>
+  </bns:object>
+</bns:Component>

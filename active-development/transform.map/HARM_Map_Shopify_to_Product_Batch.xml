@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bns:Component xmlns:bns="http://api.platform.boomi.com/"
+               componentId="fd014690-ce09-4b4b-9e2b-78cc45984008"
+               folderId="Rjo4OTczNjc5"
+               name="HARM - Map Shopify to Product Batch"
+               type="transform.map">
+  <bns:description>built with boomi-companion v1.0.107</bns:description><bns:object>
+    <Map fromProfile="9f52eea8-7131-499a-90d0-2dcba022808d" toProfile="10abde49-c279-440c-b3bf-e8a068d6a6b3">
+      <Mappings>
+        <Mapping fromKey="95" fromType="profile" toKey="4" toType="profile"/>
+        <Mapping fromKey="64" fromType="profile" toKey="5" toType="profile"/>
+        <Mapping fromKey="64" fromType="profile" toFunction="1" toKey="1" toType="function"/>
+        <Mapping fromFunction="1" fromKey="1" fromType="function" toKey="6" toType="profile"/>
+        <Mapping fromKey="57" fromType="profile" toKey="7" toType="profile"/>
+        <Mapping fromKey="101" fromType="profile" toKey="8" toType="profile"/>
+        <Mapping fromKey="92" fromType="profile" toKey="9" toType="profile"/>
+        <Mapping fromKey="95" fromType="profile" toKey="10" toType="profile"/>
+      </Mappings>
+      <Functions optimizeExecutionOrder="true">
+        <FunctionStep category="userdefined" id="b09466fa-3019-423b-bb33-404a9921bcb8" key="1"
+                      name="HARM - Harmonized SKU" position="1" type="userdefined" x="10.0" y="10.0">
+          <Inputs>
+            <Input key="1" name="gtin"/>
+          </Inputs>
+          <Outputs>
+            <Output key="1" name="harmonized_sku"/>
+          </Outputs>
+          <Configuration/>
+        </FunctionStep>
+      </Functions>
+      <Defaults>
+        <Default toKey="2" value="shopify"/>
+      </Defaults>
+      <DocumentCacheJoins/>
+    </Map>
+  </bns:object>
+</bns:Component>

@@ -1,0 +1,182 @@
+openapi: 3.0.3
+info:
+  title: SKU and Price Harmonization POC
+  version: "1.0"
+  description: >
+    Three actions for a CPG product-harmonization demo. The Boomi Integration process behind each
+    one reads a Shopify development store and an AWS Marketplace mock, harmonizes them in Boomi
+    Data Hub, and checks the result with dbt and Elementary. Prices are decimal strings.
+servers:
+  - url: https://shahapigateway.ngrok.devsecops-prod.boomi.com/ws/rest/muse/harmonization
+    description: Public ngrok tunnel to the Boomi API Gateway in front of the local Atom. Every call needs the x-api-key header.
+security:
+  - apiKeyAuth: []
+paths:
+  /runHarmonization:
+    post:
+      operationId: runHarmonization
+      summary: Run the full harmonization
+      description: >
+        Loads Shopify and AWS Marketplace into Data Hub, pushes the harmonized price and SKU back to
+        both channels, exports the golden records and runs the data-quality tests. Takes about 30 to
+        60 seconds. If a test run is already active the answer has status in_progress.
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+      responses:
+        "200":
+          description: Result of the run
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RunSummary"
+  /changeShopifyPrice:
+    post:
+      operationId: changeShopifyPrice
+      summary: Change the Shopify price of one product
+      description: >
+        Sets the price of the product with the given GTIN in the Shopify development store.
+        The price must be a positive number with at most two decimals. Only demo products can be
+        changed. Run the harmonization afterwards to see the change flow through.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [gtin, price]
+              properties:
+                gtin:
+                  type: string
+                  description: 13-digit GTIN of the product
+                  example: "0812345002010"
+                price:
+                  type: string
+                  description: New price, for example 9.99
+                  example: "9.99"
+      responses:
+        "200":
+          description: The price was changed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  gtin: {type: string}
+                  price: {type: string}
+        "400":
+          description: The price is not a positive number with at most two decimals
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        "404":
+          description: No demo product has that GTIN
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  /showElementaryResults:
+    get:
+      operationId: showElementaryResults
+      summary: Show the latest data-quality results
+      description: >
+        Returns the latest dbt and Elementary test summary: how many checks passed, how many
+        records were flagged (price drift between channels, unmatched marketplace listings), and
+        a link to the full report, and the records behind the counts (which products drifted and by how much,
+        and which AWS listings are unmatched). If no run has happened yet it answers with a message to run first.
+      responses:
+        "200":
+          description: Latest summary
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RunSummary"
+  /showGlossary:
+    get:
+      operationId: showGlossary
+      summary: Explain the business terms behind the data
+      description: >
+        Returns the endorsed business glossary terms for the CPG Product model: Harmonized SKU,
+        Price Authority, Channel Price Variance and Canonical Product ID, each with a plain-text
+        definition. Use it when someone asks what a term or a data-quality check means, for
+        example why Shopify wins on price or how the harmonized SKU is formed.
+      responses:
+        "200":
+          description: The glossary terms
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Glossary"
+components:
+  securitySchemes:
+    apiKeyAuth:
+      type: apiKey
+      in: header
+      name: x-api-key
+      description: API Management key for the HARM - Muse API plan
+  schemas:
+    RunSummary:
+      type: object
+      properties:
+        status:
+          type: string
+          enum: [ok, in_progress, failed]
+        tests_passed: {type: integer}
+        tests_failed:
+          type: integer
+          description: Number of records flagged by the checks
+        failing:
+          type: array
+          items: {type: string}
+          description: Names of the checks that flagged records
+        report_url:
+          type: string
+        details:
+          type: object
+          nullable: true
+          description: The records behind the counts, so you can say which products drifted and by how much
+          properties:
+            price_drift:
+              type: array
+              description: Matched products whose marketplace price differs from the golden price by more than 1 percent
+              items:
+                type: object
+                properties:
+                  gtin: {type: string}
+                  name: {type: string}
+                  channel: {type: string, description: The channel whose price differs}
+                  channel_price: {type: string}
+                  golden_price: {type: string, description: The Shopify price, which wins}
+                  variance_pct: {type: string, description: Percent above (positive) or below the golden price}
+            unmatched_listings:
+              type: array
+              description: AWS Marketplace listings no golden record claims, usually because the GTIN is missing or malformed
+              items:
+                type: object
+                properties:
+                  aws_sku: {type: string}
+                  gtin: {type: string, nullable: true, description: The GTIN as listed, if any}
+                  name: {type: string}
+                  price: {type: string}
+    Glossary:
+      type: object
+      properties:
+        model: {type: string}
+        term_count: {type: integer}
+        terms:
+          type: array
+          items:
+            type: object
+            properties:
+              name: {type: string}
+              endorsement: {type: string, description: ENDORSED means the term is approved}
+              purpose: {type: string, description: Why the term exists}
+              definition: {type: string, description: Plain-text definition}
+    Error:
+      type: object
+      properties:
+        error: {type: string}

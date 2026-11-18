@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bns:Component xmlns:bns="http://api.platform.boomi.com/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" componentId="a0b89f92-3a36-4b11-993c-6d3b8278a43d" name="HARM - WSS Show Glossary" type="connector-action" subType="wss" folderId="Rjo4OTczNjc5">
+  <bns:encryptedValues/>
+  <bns:description>built with boomi-companion v1.0.107</bns:description>
+  <bns:object>
+    <Operation>
+      <Archiving directory="" enabled="false"/>
+      <Configuration><WebServicesServerListenAction inputType="none" objectName="harmonization" operationType="EXECUTE" outputType="singledata" responseContentType="application/json"/></Configuration>
+      <Tracking><TrackedFields/></Tracking>
+      <Caching/>
+    </Operation>
+  </bns:object>
+</bns:Component>

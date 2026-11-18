@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bns:Component xmlns:bns="http://api.platform.boomi.com/" componentId="4001304d-343f-4ceb-8bf4-7aa74ba4ea01" folderId="Rjo4OTczNjc5" name="HARM - Map AWSMP to Product Batch" type="transform.map">
+  <bns:description>built with boomi-companion v1.0.107</bns:description><bns:object>
+    <Map fromProfile="6e9eb001-369c-4523-ba68-2ca6089dc17f" toProfile="10abde49-c279-440c-b3bf-e8a068d6a6b3">
+      <Mappings><Mapping fromKey="11" fromType="profile" toKey="4" toType="profile"/><Mapping fromKey="10" fromType="profile" toKey="7" toType="profile"/><Mapping fromKey="13" fromType="profile" toKey="9" toType="profile"/><Mapping fromKey="11" fromType="profile" toKey="11" toType="profile"/><Mapping fromKey="12" fromType="profile" toKey="5" toType="profile"/><Mapping fromKey="12" fromType="profile" toFunction="1" toKey="1" toType="function"/><Mapping fromFunction="1" fromKey="1" fromType="function" toKey="6" toType="profile"/></Mappings>
+      <Functions optimizeExecutionOrder="true"><FunctionStep category="userdefined" id="b09466fa-3019-423b-bb33-404a9921bcb8" key="1" name="HARM - Harmonized SKU" position="1" type="userdefined" x="10.0" y="10.0"><Inputs><Input key="1" name="gtin"/></Inputs><Outputs><Output key="1" name="harmonized_sku"/></Outputs><Configuration/></FunctionStep></Functions>
+      <Defaults><Default toKey="2" value="aws_marketplace"/></Defaults>
+      <DocumentCacheJoins/>
+    </Map>
+  </bns:object>
+</bns:Component>

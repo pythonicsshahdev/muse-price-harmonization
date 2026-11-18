@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bns:Component xmlns:bns="http://api.platform.boomi.com/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" componentId="596967b0-f95b-4ad8-ac2f-93b7497fa206" folderId="Rjo4OTczNjc5" name="HARM - Show Elementary Results API" type="process">
+  <bns:encryptedValues/>
+  <bns:description>Muse entry point: returns the latest dbt/Elementary summary (tests_passed, tests_failed, failing, report_url). | built with boomi-companion v1.0.107</bns:description>
+  <bns:object>
+    <process allowSimultaneous="true" enableUserLog="false" processLogOnErrorOnly="false" purgeDataImmediately="false" stopProcessingIfZeroDocuments="true" updateRunDates="false" workload="general">
+      <shapes><shape image="start" name="shape1" shapetype="start" userlabel="" x="48" y="96"><configuration><connectoraction actionType="Listen" allowDynamicCredentials="NONE" connectorType="wss" hideSettings="true" operationId="c5afbf13-1be7-4733-94d9-a1208eaddbca"><parameters/><dynamicProperties/></connectoraction></configuration><dragpoints><dragpoint name="shape1.dragpoint1" toShape="shape2" x="0" y="0"/></dragpoints></shape><shape image="connectoraction_icon" name="shape2" shapetype="connectoraction" userlabel="Get latest results" x="240" y="96"><configuration><connectoraction actionType="GET" allowDynamicCredentials="NONE" connectionId="770b6955-e530-4a4b-bac0-f6fba23bd56c" connectorType="officialboomi-X3979C-rest-prod" hideSettings="false" operationId="283abeb1-feff-471c-87c3-17f57c138a91"><parameters/><dynamicProperties/></connectoraction></configuration><dragpoints><dragpoint name="shape2.dragpoint1" toShape="shape3" x="0" y="0"/></dragpoints></shape><shape image="returndocuments_icon" name="shape3" shapetype="returndocuments" userlabel="Respond with the results" x="432" y="96"><configuration><returndocuments/></configuration><dragpoints></dragpoints></shape></shapes>
+    </process>
+  </bns:object>
+</bns:Component>

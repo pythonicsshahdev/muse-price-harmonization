@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bns:Component xmlns:bns="http://api.platform.boomi.com/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" componentId="b2e96432-2c5d-4536-abba-0f5a38577057" name="HARM - Postgres Upsert Golden Product" type="connector-action" subType="officialboomi-X3979C-dbv2da-prod" folderId="Rjo4OTczNjc5">
+  <bns:encryptedValues/>
+  <bns:description>Standard Insert + ON CONFLICT (gtin). Binds positionally: request profile order must stay golden_id, gtin, harmonized_sku, name, price, shopify_sku, aws_sku. | built with boomi-companion v1.0.107</bns:description>
+  <bns:object>
+    <Operation returnApplicationErrors="false" trackResponse="false">
+      <Archiving directory="" enabled="false"/>
+      <Configuration>
+        <GenericOperationConfig customOperationType="CREATE" objectTypeId="harm_golden_products" objectTypeName="harm_golden_products" operationType="CREATE" requestProfile="47357409-6898-448c-bcda-e0a86117a3bb" requestProfileType="json" responseProfile="0eda0deb-e07b-40a3-b385-e9ea1f3eabe9" responseProfileType="json">
+          <field id="InsertionType" type="string" value="Standard Insert"/>
+          <field id="schemaName" type="string" value=""/>
+          <field id="query" type="string" value="insert into public.harm_golden_products (golden_id, gtin, harmonized_sku, name, price, shopify_sku, aws_sku, updated_at) values (?, ?, ?, ?, ?, ?, ?, now()) on conflict (gtin) do update set golden_id = excluded.golden_id, harmonized_sku = excluded.harmonized_sku, name = excluded.name, price = excluded.price, shopify_sku = excluded.shopify_sku, aws_sku = excluded.aws_sku, updated_at = now()"/>
+          <field id="joinTransaction" type="boolean" value="false"/>
+          <field id="CommitOption" type="string" value="Commit By Rows"/>
+          <field id="batchCount" type="integer" value="1"/>
+          <Options/>
+        </GenericOperationConfig>
+      </Configuration>
+      <Tracking><TrackedFields/></Tracking>
+      <Caching/>
+    </Operation>
+  </bns:object>
+</bns:Component>

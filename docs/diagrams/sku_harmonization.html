@@ -1,0 +1,261 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<title>Consumer Packaged Goods POC - Use Case 1: SKU &amp; Price Harmonization</title><style>
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{background:#fff;color:#12212F;
+  font-family:"Segoe UI",-apple-system,BlinkMacSystemFont,Roboto,Helvetica,Arial,sans-serif;
+  -webkit-font-smoothing:antialiased}
+.sheet{width:2000px;margin:0 auto;position:relative}
+
+.hdr{background:#0B1F38;color:#fff;text-align:center;padding:18px 24px}
+.hdr h1{margin:0;font-size:30px;font-weight:700;letter-spacing:.01em}
+.hdr h1 .sep{opacity:.55;padding:0 10px}
+
+.crumb{background:#E8F2FC;color:#274B6D;text-align:center;
+  padding:11px 24px;font-size:16px}
+.crumb b{font-weight:600;color:#123A5E}
+.crumb .arw{color:#1273E6;padding:0 7px;font-weight:700}
+.crumb .dot{color:#8FA9C0;padding:0 9px}
+
+.canvas{position:relative;padding:84px 40px 8px}
+.grid{display:grid;gap:96px 26px;align-items:stretch;position:relative;z-index:2}
+svg.links{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:3;overflow:visible}
+
+.grp{position:absolute;border:2px dashed var(--gc);border-radius:14px;
+  z-index:1;pointer-events:none}
+.grp .gt{position:absolute;left:-2px;right:-2px;top:-30px;height:30px;
+  background:var(--gc);color:#fff;border-radius:10px 10px 0 0;
+  font-size:16px;font-weight:700;display:flex;align-items:center;
+  justify-content:center;letter-spacing:.01em}
+.card{position:relative;border-radius:12px;padding:14px 16px 16px 20px;
+  border:1.5px solid var(--line);background:var(--bg);min-height:64px}
+.card::before{content:"";position:absolute;left:0;top:0;bottom:0;width:6px;
+  border-radius:12px 0 0 12px;background:var(--bar)}
+.card.dashed{border-style:dashed;background:#fff}
+.card.plain{background:#fff}
+.icon{position:absolute;right:14px;top:12px;line-height:0;opacity:.95}
+.badge{position:absolute;left:14px;top:-13px;width:30px;height:30px;border-radius:50%;
+  background:#0B1F38;color:#fff;font-size:15px;font-weight:700;
+  display:flex;align-items:center;justify-content:center;z-index:3}
+.eyebrow{font-size:13.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;
+  color:var(--ink);text-align:center;margin:2px 0 0 14px}
+.eyebrow.plainCase{text-transform:none;letter-spacing:0;font-size:17px}
+.ttl{font-size:23px;font-weight:700;text-align:center;margin:8px 0 10px;color:#12212F}
+.rule{height:1px;background:var(--line);margin:0 2px 10px}
+.lines{text-align:center;font-size:16px;line-height:1.75;color:#2A3B4C}
+.lines .k{font-weight:700;color:var(--ink)}
+.note{text-align:center;font-size:15px;font-style:italic;color:#5B6A79;margin-top:8px}
+.tag{display:block;text-align:center;font-size:13px;color:#7A8794;margin-top:6px}
+
+.sub{display:flex;align-items:stretch;gap:0;border:1.5px solid var(--sline);
+  border-radius:9px;overflow:hidden;margin:9px 0;background:var(--sbg)}
+.sub .let{width:44px;flex:none;background:var(--sbar);color:#fff;font-weight:700;font-size:19px;
+  display:flex;align-items:center;justify-content:center}
+.sub .body{padding:8px 12px}
+.sub .h{font-size:15.5px;font-weight:700;color:var(--sink)}
+.sub .d{font-size:14px;color:#4A5866;margin-top:2px}
+
+.diamond{width:190px;height:96px;margin:6px auto 4px;background:#0B2A4A;color:#fff;
+  clip-path:polygon(50% 0,100% 50%,50% 100%,0 50%);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center}
+.diamond .a{font-size:15px;font-weight:700}
+.diamond .b{font-size:12.5px;opacity:.85}
+
+.chip{display:block;margin:9px auto 0;width:max-content;border-radius:20px;
+  padding:6px 16px;font-size:15px;font-weight:700;border:1.5px solid;background:#fff}
+
+.details{padding:4px 40px 30px}
+.dh{font-size:17px;font-weight:700;margin:14px 0 12px}
+.dcards{display:grid;grid-template-columns:repeat(3,1fr);gap:26px}
+.dcard{border-radius:12px;border:1.5px solid var(--line);background:var(--bg);
+  padding:16px 20px 18px;position:relative}
+.dcard::before{content:"";position:absolute;left:0;top:0;bottom:0;width:6px;
+  border-radius:12px 0 0 12px;background:var(--bar)}
+.dcard h3{margin:0 0 10px;text-align:center;font-size:20px;color:var(--ink)}
+.dcard ul{margin:0;padding:0;list-style:none}
+.dcard li{font-size:16px;line-height:1.5;color:#243546;margin:0 0 14px;padding-left:16px;position:relative}
+.dcard li:last-child{margin-bottom:0}
+.dcard li::before{content:"\2022";position:absolute;left:0;color:#5B6A79}
+
+.foot{border-top:1px solid #E2E8EE;text-align:center;font-size:15px;color:#667482;padding:14px 0 22px}
+.foot .dot{color:#AAB6C2;padding:0 9px}
+
+.lbl{font-size:15px;font-weight:700;fill:#12212F}
+.lbl.muted{fill:#5B6A79;font-weight:600;font-style:italic}
+.pill rect{fill:#fff;stroke-width:1.5}
+.pill text{font-size:14.5px;font-weight:700;dominant-baseline:middle;text-anchor:middle}
+</style></head>
+<body><div class="sheet">
+  <div class="hdr"><h1>Consumer Packaged Goods POC<span class="sep">&mdash;</span>Use Case 1: SKU &amp; Price Harmonization</h1></div>
+  <div class="crumb">Shopify<span class="dot">&middot;</span>AWS Marketplace<span class="arw">&#9656;</span>Boomi<span class="arw">&#9656;</span>DataHub<span class="arw">&#9656;</span>Channels<span class="dot">&middot;</span>Elementary</div>
+  <div class="canvas">
+    <svg class="links"></svg>
+    <div class="grid" style="grid-template-columns:1fr 0.45fr 1.05fr 0.45fr 1.2fr 0.45fr 1.05fr;grid-template-areas:'muse muse meta meta meta meta meta' 'shop . inbs . dh . exp' 'aws . inba . dh . exp' 'out . . . . . ela';"><div class="card" id="muse" style="--bar:#5C6B7A;--ink:#41505E;--bg:#EEF1F4;--line:#CBD4DC;grid-area:muse"><div class="icon"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M21.4902 4.72058L21.1666 4.61274C21.1666 4.61274 21.0588 4.61274 21.0588 4.5049C21.0588 4.39705 20.951 4.39705 20.951 4.28921V3.96568C20.951 3.21078 20.6274 2.34803 19.8725 1.80882C19.7647 1.70098 19.549 1.59313 19.3333 1.48529C18.4706 1.05392 17.6078 1.2696 16.8529 1.59313L16.6372 1.70098C16.6372 1.70098 16.5294 1.70098 16.4215 1.70098C16.3137 1.70098 16.3137 1.70098 16.2059 1.70098L15.9902 1.59313C15.3431 1.16176 14.3725 1.05392 13.6176 1.48529C13.4019 1.59313 13.2941 1.70098 13.0784 1.80882C12.3235 2.34803 12 3.21078 12 3.96568V4.28921C12 4.28921 12 4.39705 11.8921 4.5049C12 4.5049 12 4.61274 12 4.61274L11.6764 4.72058C11.0294 5.04411 10.3823 5.79902 10.3823 6.7696C10.3823 6.98529 10.3823 7.20098 10.3823 7.30882C10.3823 8.27941 11.0294 8.92647 11.6764 9.35784L12 9.46568C12 9.46568 12.1078 9.46568 12.1078 9.57352C12.1078 9.68137 12.2157 9.68137 12.2157 9.78921V10.1127C12.2157 10.8676 12.5392 11.7304 13.2941 12.2696C13.4019 12.3774 13.6176 12.4853 13.8333 12.5931C14.6961 13.0245 15.5588 12.8088 16.3137 12.4853L16.5294 12.3774C16.5294 12.3774 16.6372 12.3774 16.7451 12.3774C16.8529 12.3774 16.8529 12.3774 16.9608 12.3774L17.1764 12.4853C17.8235 12.9167 18.7941 13.0245 19.549 12.5931C19.7647 12.4853 19.8725 12.3774 20.0882 12.2696C20.8431 11.7304 21.1666 10.8676 21.1666 10.1127V9.78921C21.1666 9.78921 21.1666 9.68137 21.2745 9.57352C21.2745 9.46568 21.3823 9.46568 21.3823 9.46568L21.7059 9.35784C22.3529 9.03431 23 8.27941 23 7.30882C23 7.09313 23 6.87745 23 6.7696C22.7843 5.79902 22.1372 5.15196 21.4902 4.72058ZM16.5294 8.71078C15.6666 8.71078 14.9117 7.95588 14.9117 7.09313C14.9117 6.23039 15.6666 5.47549 16.5294 5.47549C17.3921 5.47549 18.147 6.23039 18.147 7.09313C18.2549 7.95588 17.5 8.71078 16.5294 8.71078Z" fill="#64B5F6"/>
+<path d="M12.3235 14.75L12 14.5343C12 14.5343 11.8922 14.5343 11.8922 14.4264C11.8922 14.3186 11.7843 14.3186 11.7843 14.2107V13.8872C11.7843 13.1323 11.4608 12.2696 10.7059 11.7303C10.598 11.6225 10.3824 11.5147 10.1667 11.4068C9.30392 10.9754 8.44118 11.1911 7.68627 11.5147L7.47059 11.6225C7.47059 11.6225 7.36275 11.6225 7.2549 11.6225C7.14706 11.6225 7.14706 11.6225 7.03922 11.6225L6.82353 11.5147C6.17647 11.0833 5.20588 10.9754 4.45098 11.4068C4.23529 11.5147 4.12745 11.6225 3.91176 11.7303C3.15686 12.2696 2.83333 13.1323 2.83333 13.8872V14.2107C2.83333 14.2107 2.83333 14.3186 2.72549 14.4264C2.72549 14.5343 2.61765 14.5343 2.61765 14.5343L2.29412 14.6421C1.64706 14.9656 1 15.7205 1 16.6911C1 16.9068 1 17.1225 1 17.2303C1 18.2009 1.64706 18.848 2.29412 19.2794L2.61765 19.3872C2.61765 19.3872 2.72549 19.3872 2.72549 19.495C2.72549 19.6029 2.83333 19.6029 2.83333 19.7107V20.0343C2.83333 20.7892 3.15686 21.6519 3.91176 22.1911C4.01961 22.299 4.23529 22.4068 4.45098 22.5147C5.31373 22.946 6.17647 22.7303 6.93137 22.4068L7.14706 22.299C7.14706 22.299 7.2549 22.299 7.36274 22.299C7.47059 22.299 7.47059 22.299 7.57843 22.299L7.79412 22.4068C8.44118 22.8382 9.41176 22.946 10.1667 22.5147C10.3824 22.4068 10.4902 22.299 10.7059 22.1911C11.4608 21.6519 11.7843 20.7892 11.7843 20.0343V19.7107C11.7843 19.7107 11.7843 19.6029 11.8922 19.495C11.8922 19.3872 12 19.3872 12 19.3872L12.3235 19.2794C12.9706 18.9558 13.6176 18.2009 13.6176 17.2303C13.6176 17.0147 13.6176 16.799 13.6176 16.6911C13.6176 15.8284 12.9706 15.0735 12.3235 14.75ZM7.47059 18.6323C6.60784 18.6323 5.85294 17.8774 5.85294 17.0147C5.85294 16.1519 6.60784 15.397 7.47059 15.397C8.33333 15.397 9.08824 16.1519 9.08824 17.0147C9.08824 17.8774 8.33333 18.6323 7.47059 18.6323Z" fill="#90A4AE"/>
+</svg></div><div class="eyebrow plainCase">Front end</div><div class="ttl">Muse</div><div class="rule"></div><div class="lines">The interface people use to run the POC<br>Triggers a Boomi API to start a run</div></div><div class="card" id="shop" style="--bar:#1273E6;--ink:#1273E6;--bg:#EAF3FD;--line:#BBD9F5;grid-area:shop"><div class="badge">1</div><div class="icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M19.4867 4.66506C19.4675 4.5494 19.3711 4.47229 19.2747 4.47229C19.1783 4.47229 17.347 4.33735 17.347 4.33735C17.347 4.33735 16.0747 3.06506 15.9205 2.93012C15.7855 2.79518 15.4964 2.83374 15.4 2.87229C15.3807 2.87229 15.1108 2.9494 14.6867 3.08434C14.2626 1.8506 13.5108 0.713253 12.1807 0.713253C12.1422 0.713253 12.1036 0.713253 12.0651 0.713253C11.6795 0.212048 11.2169 0 10.812 0C7.70843 0 6.2241 3.8747 5.76145 5.84096C4.56626 6.20723 3.69879 6.47711 3.60241 6.51566C2.92771 6.72771 2.90843 6.74699 2.83133 7.38313C2.75422 7.84578 1 21.4361 1 21.4361L14.6867 24L22.1084 22.4C22.1084 22.4 19.506 4.8 19.4867 4.66506ZM13.9157 3.31566C13.5687 3.43133 13.1831 3.54699 12.759 3.68193C12.759 3.60482 12.759 3.52771 12.759 3.43133C12.759 2.66024 12.6434 2.04337 12.4892 1.56145C13.1831 1.63855 13.6265 2.40964 13.9157 3.31566ZM11.641 1.69639C11.8337 2.17831 11.9494 2.85301 11.9494 3.77831C11.9494 3.81687 11.9494 3.8747 11.9494 3.91325C11.1976 4.14458 10.3687 4.39518 9.55903 4.64578C10.0217 2.89157 10.8892 2.0241 11.641 1.69639ZM10.7157 0.828916C10.8506 0.828916 10.9855 0.86747 11.1205 0.963855C10.1373 1.42651 9.05783 2.60241 8.61446 4.95422C7.95904 5.16627 7.32289 5.35904 6.7253 5.53253C7.24578 3.73976 8.49879 0.828916 10.7157 0.828916Z" fill="#95BF47"/>
+<path d="M19.2747 4.47229C19.1783 4.47229 17.3469 4.33735 17.3469 4.33735C17.3469 4.33735 16.0747 3.06507 15.9204 2.93013C15.8626 2.87229 15.8048 2.85302 15.7277 2.83374L14.6867 24L22.1084 22.4C22.1084 22.4 19.506 4.80001 19.4867 4.68434C19.4674 4.5494 19.3518 4.49157 19.2747 4.47229Z" fill="#5E8E3E"/>
+<path d="M12.1616 8.57835L11.2556 11.2964C11.2556 11.2964 10.4459 10.8723 9.48206 10.8723C8.03628 10.8723 7.97845 11.7783 7.97845 12.0097C7.97845 13.2434 11.217 13.7253 11.217 16.6362C11.217 18.9302 9.77122 20.3952 7.80495 20.3952C5.45315 20.3952 4.25797 18.9302 4.25797 18.9302L4.89411 16.8482C4.89411 16.8482 6.12784 17.9085 7.16881 17.9085C7.84351 17.9085 8.13266 17.3687 8.13266 16.9832C8.13266 15.3639 5.47242 15.2868 5.47242 12.6265C5.47242 10.3904 7.07242 8.21208 10.3303 8.21208C11.5447 8.21208 12.1616 8.57835 12.1616 8.57835Z" fill="white"/>
+</svg></div><div class="eyebrow plainCase">Sales channel</div><div class="ttl">Shopify Store</div><div class="rule"></div><div class="lines">Real development store<br>Admin API via native connector</div><span class="chip" style="color:#127C3F;border-color:#127C3F">Price authority</span></div><div class="card" id="aws" style="--bar:#1273E6;--ink:#1273E6;--bg:#EAF3FD;--line:#BBD9F5;grid-area:aws"><div class="badge">2</div><div class="icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g clip-path="url(#clip0_36_254)">
+<g clip-path="url(#clip1_36_254)">
+<path d="M23.3277 8.09204C23.3037 7.99599 23.2676 7.89995 23.2196 7.8159C22.8955 6.95147 22.4993 6.11105 21.983 5.31865C20.6623 3.33766 18.8014 1.8129 16.5923 0.900446C15.1756 0.312152 13.6869 0.0360138 12.1741 0.0120018C12.066 -4.23762e-06 11.97 -0.0120102 11.8619 0.0120018C11.1296 0.0120018 10.3852 0.0720318 9.65283 0.216104C7.31166 0.684338 5.1866 1.8129 3.50576 3.50575C2.24513 4.76638 1.29665 6.26713 0.70836 7.92396C0.70836 7.92396 0.70836 7.92396 0.70836 7.93596C0.504258 8.48824 0.34818 9.06453 0.22812 9.65282C-0.180084 11.7299 -0.0120004 13.8429 0.660336 15.8239C0.684348 15.944 0.720366 16.052 0.76839 16.1601C0.816414 16.3041 0.852432 16.4482 0.912462 16.5923C1.82492 18.7894 3.34968 20.6623 5.33067 21.983C7.31166 23.3036 9.61682 24.012 12.006 24.012C12.1861 24.012 12.3422 23.964 12.4983 23.9039C12.5223 23.8919 12.5463 23.8679 12.5703 23.8559C12.6904 23.7839 12.8104 23.6998 12.8945 23.6038C12.8945 23.5918 12.9185 23.5918 12.9305 23.5798C12.9545 23.5438 12.9665 23.4957 12.9905 23.4597C13.0385 23.3757 13.0866 23.3036 13.1226 23.2076C13.1466 23.1356 13.1586 23.0755 13.1586 23.0035C13.1586 22.9435 13.1946 22.8834 13.1946 22.8234C13.1946 22.7994 13.1826 22.7754 13.1826 22.7514C13.1826 22.6793 13.1586 22.6193 13.1466 22.5473C13.1226 22.4632 13.1106 22.3792 13.0745 22.3071C13.0505 22.2471 13.0025 22.1991 12.9665 22.1511C12.9185 22.079 12.8584 22.007 12.7984 21.947C12.7864 21.935 12.7744 21.911 12.7624 21.8989C12.6423 21.8029 10.6493 20.1221 9.49675 16.8324H12.006C12.6663 16.8324 13.2066 16.2921 13.2066 15.6318C13.2066 14.9715 12.6663 14.4312 12.006 14.4312H8.89645C8.77639 13.6868 8.70436 12.8824 8.70436 12.03C8.70436 11.1776 8.7884 10.3732 8.90846 9.62881H15.1036C15.2236 10.3732 15.3077 11.1656 15.3077 12.03C15.3077 12.6903 15.8479 13.2306 16.5083 13.2306C17.1686 13.2306 17.7089 12.6903 17.7089 12.03C17.7089 11.1776 17.6488 10.3852 17.5408 9.62881H21.2867C21.4908 10.4092 21.6108 11.2136 21.6108 12.03C21.6108 12.6903 22.1511 13.2306 22.8114 13.2306C23.4717 13.2306 24.012 12.6903 24.012 12.03C24.012 10.6853 23.7719 9.37668 23.3397 8.12806L23.3277 8.09204ZM8.95648 2.89344C8.22412 3.98599 7.47975 5.4147 6.96349 7.19159H3.68585C4.10606 6.47123 4.5983 5.79889 5.1986 5.19859C6.25513 4.14207 7.53978 3.36168 8.95648 2.89344ZM8.95648 21.0825C8.15208 20.8184 7.37169 20.4462 6.66334 19.966C5.42672 19.1376 4.43022 18.057 3.69785 16.7844H6.97549C7.49175 18.5613 8.23612 19.99 8.96849 21.0825H8.95648ZM6.45924 14.3952H2.70136C2.34118 13.0025 2.29315 11.5498 2.56929 10.1211C2.60531 9.94097 2.66534 9.77288 2.71336 9.59279H6.45924C6.35118 10.3492 6.29115 11.1416 6.29115 11.994C6.29115 12.8464 6.35118 13.6388 6.45924 14.3952ZM9.48475 7.19159C10.2171 5.10255 11.2736 3.66183 11.994 2.86943C12.7144 3.66183 13.7829 5.11455 14.5033 7.19159H9.48475ZM17.0245 7.19159C16.5083 5.42671 15.7759 3.99799 15.0435 2.91745C15.2476 2.98949 15.4637 3.03751 15.6678 3.12156C17.4327 3.85392 18.9215 5.07853 19.978 6.66333C20.0981 6.83141 20.1821 7.02351 20.2781 7.19159H17.0125H17.0245Z" fill="#2196F3"/>
+<path d="M22.5353 22.067L22.0791 22.5233C22.0791 22.5233 21.995 22.5953 21.935 22.6193C21.887 22.6433 21.8269 22.6553 21.7669 22.6553C21.7069 22.6553 21.6588 22.6553 21.5988 22.6193C21.5508 22.5953 21.5028 22.5713 21.4547 22.5233L19.4137 20.4822L18.7174 22.2951C18.6693 22.4152 18.5973 22.4992 18.5013 22.5593C18.4052 22.6193 18.2972 22.6553 18.1891 22.6553H18.1651C18.045 22.6553 17.937 22.6073 17.8409 22.5353C17.7449 22.4632 17.6849 22.3672 17.6488 22.2591L15.7639 16.4842C15.7279 16.3882 15.7279 16.2801 15.7519 16.1721C15.7759 16.064 15.8239 15.98 15.908 15.8959C15.98 15.8239 16.076 15.7639 16.1841 15.7399C16.2922 15.7159 16.4002 15.7159 16.4963 15.7519L22.2711 17.6368C22.3792 17.6728 22.4753 17.7449 22.5473 17.8409C22.6193 17.937 22.6553 18.045 22.6673 18.1651C22.6673 18.2851 22.6433 18.3932 22.5833 18.5012C22.5233 18.5973 22.4272 18.6813 22.3312 18.7294L20.5183 19.4257L22.5593 21.4667C22.6433 21.5508 22.6914 21.6588 22.6914 21.7669C22.6914 21.8749 22.6433 21.995 22.5593 22.067H22.5353Z" fill="#FFC107"/>
+</g>
+</g>
+<defs>
+<clipPath id="clip0_36_254">
+<rect width="24" height="24" fill="white"/>
+</clipPath>
+<clipPath id="clip1_36_254">
+<rect width="24" height="24" fill="white"/>
+</clipPath>
+</defs>
+</svg></div><div class="eyebrow plainCase">Sales channel</div><div class="ttl">AWS Marketplace</div><div class="rule"></div><div class="lines">Mock API in Docker<br>Real payload shapes</div><div class="note">Swap for a real account by editing the connection</div></div><div class="card" id="inbs" style="--bar:#0B2A4A;--ink:#0B2A4A;--bg:#DCE8F3;--line:#B4C9DE;grid-area:inbs"><div class="badge">3</div><div class="icon"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M8.92 11.23H7.38C7.05 9.80003 5.73 8.81003 4.3 8.81003C2.43 8.81003 1 10.24 1 12C1 13.76 2.43 15.19 4.19 15.19C5.73 15.19 6.94 14.2 7.27 12.77H8.81C9.25 12.77 9.58 12.44 9.58 12C9.69 11.56 9.36 11.23 8.92 11.23ZM4.19 13.54C3.31 13.54 2.65 12.88 2.65 12C2.65 11.12 3.31 10.46 4.19 10.46C5.07 10.46 5.73 11.12 5.73 12C5.73 12.88 5.07 13.54 4.19 13.54Z" fill="#90A4AE"/>
+<path d="M19.81 8.81C18.27 8.81 17.06 9.8 16.73 11.23H15.19C14.75 11.23 14.42 11.56 14.42 12C14.42 12.44 14.75 12.77 15.19 12.77H16.73C17.06 14.2 18.38 15.19 19.81 15.19C21.57 15.19 23 13.76 23 12C23 10.24 21.57 8.81 19.81 8.81Z" fill="#90A4AE"/>
+<path d="M4.19 7.38C4.74 7.38 5.4 7.27 5.84 6.94L8.37 9.47C8.7 9.8 9.14 9.8 9.47 9.47C9.8 9.14 9.8 8.7 9.47 8.37L6.94 5.84C7.27 5.4 7.38 4.85 7.38 4.19C7.38 2.43 5.95 1 4.19 1C2.43 1 1 2.43 1 4.19C1 5.95 2.43 7.38 4.19 7.38ZM4.19 2.65C5.07 2.65 5.73 3.31 5.73 4.19C5.73 5.07 5.07 5.73 4.19 5.73C3.31 5.73 2.65 5.07 2.65 4.19C2.65 3.31 3.31 2.65 4.19 2.65Z" fill="#7986CB"/>
+<path d="M19.81 16.62C19.26 16.62 18.6 16.73 18.16 17.06L15.63 14.53C15.3 14.2 14.86 14.2 14.53 14.53C14.2 14.86 14.2 15.3 14.53 15.63L17.06 18.16C16.73 18.6 16.62 19.15 16.62 19.81C16.62 21.57 18.05 23 19.81 23C21.57 23 23 21.57 23 19.81C23 18.05 21.57 16.62 19.81 16.62Z" fill="#7986CB"/>
+<path d="M12.77 4.96H16.73C17.06 6.39 18.38 7.38 19.81 7.38C21.57 7.38 23 5.95 23 4.19C23 2.43 21.57 1 19.81 1C18.27 1 17.06 1.99 16.73 3.42H12C11.56 3.42 11.23 3.75 11.23 4.19V19.04H7.37995C7.04995 17.61 5.72995 16.62 4.29995 16.62C2.53995 16.62 1.10995 18.05 1.10995 19.81C0.999953 21.57 2.42995 23 4.18995 23C5.72995 23 6.93995 22.01 7.26995 20.58H12C12.44 20.58 12.77 20.25 12.77 19.81V4.96ZM4.18995 21.35C3.30995 21.35 2.64995 20.69 2.64995 19.81C2.64995 18.93 3.30995 18.27 4.18995 18.27C5.06995 18.27 5.72995 18.93 5.72995 19.81C5.72995 20.69 5.06995 21.35 4.18995 21.35Z" fill="#7986CB"/>
+</svg></div><div class="eyebrow">Boomi Integration</div><div class="ttl">Inbound: Shopify</div><div class="rule"></div><div class="lines">Pull products, SKUs, prices<br>Map to DataHub batch XML</div><div class="note">Source: shopify</div></div><div class="card" id="inba" style="--bar:#0B2A4A;--ink:#0B2A4A;--bg:#DCE8F3;--line:#B4C9DE;grid-area:inba"><div class="badge">4</div><div class="icon"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M8.92 11.23H7.38C7.05 9.80003 5.73 8.81003 4.3 8.81003C2.43 8.81003 1 10.24 1 12C1 13.76 2.43 15.19 4.19 15.19C5.73 15.19 6.94 14.2 7.27 12.77H8.81C9.25 12.77 9.58 12.44 9.58 12C9.69 11.56 9.36 11.23 8.92 11.23ZM4.19 13.54C3.31 13.54 2.65 12.88 2.65 12C2.65 11.12 3.31 10.46 4.19 10.46C5.07 10.46 5.73 11.12 5.73 12C5.73 12.88 5.07 13.54 4.19 13.54Z" fill="#90A4AE"/>
+<path d="M19.81 8.81C18.27 8.81 17.06 9.8 16.73 11.23H15.19C14.75 11.23 14.42 11.56 14.42 12C14.42 12.44 14.75 12.77 15.19 12.77H16.73C17.06 14.2 18.38 15.19 19.81 15.19C21.57 15.19 23 13.76 23 12C23 10.24 21.57 8.81 19.81 8.81Z" fill="#90A4AE"/>
+<path d="M4.19 7.38C4.74 7.38 5.4 7.27 5.84 6.94L8.37 9.47C8.7 9.8 9.14 9.8 9.47 9.47C9.8 9.14 9.8 8.7 9.47 8.37L6.94 5.84C7.27 5.4 7.38 4.85 7.38 4.19C7.38 2.43 5.95 1 4.19 1C2.43 1 1 2.43 1 4.19C1 5.95 2.43 7.38 4.19 7.38ZM4.19 2.65C5.07 2.65 5.73 3.31 5.73 4.19C5.73 5.07 5.07 5.73 4.19 5.73C3.31 5.73 2.65 5.07 2.65 4.19C2.65 3.31 3.31 2.65 4.19 2.65Z" fill="#7986CB"/>
+<path d="M19.81 16.62C19.26 16.62 18.6 16.73 18.16 17.06L15.63 14.53C15.3 14.2 14.86 14.2 14.53 14.53C14.2 14.86 14.2 15.3 14.53 15.63L17.06 18.16C16.73 18.6 16.62 19.15 16.62 19.81C16.62 21.57 18.05 23 19.81 23C21.57 23 23 21.57 23 19.81C23 18.05 21.57 16.62 19.81 16.62Z" fill="#7986CB"/>
+<path d="M12.77 4.96H16.73C17.06 6.39 18.38 7.38 19.81 7.38C21.57 7.38 23 5.95 23 4.19C23 2.43 21.57 1 19.81 1C18.27 1 17.06 1.99 16.73 3.42H12C11.56 3.42 11.23 3.75 11.23 4.19V19.04H7.37995C7.04995 17.61 5.72995 16.62 4.29995 16.62C2.53995 16.62 1.10995 18.05 1.10995 19.81C0.999953 21.57 2.42995 23 4.18995 23C5.72995 23 6.93995 22.01 7.26995 20.58H12C12.44 20.58 12.77 20.25 12.77 19.81V4.96ZM4.18995 21.35C3.30995 21.35 2.64995 20.69 2.64995 19.81C2.64995 18.93 3.30995 18.27 4.18995 18.27C5.06995 18.27 5.72995 18.93 5.72995 19.81C5.72995 20.69 5.06995 21.35 4.18995 21.35Z" fill="#7986CB"/>
+</svg></div><div class="eyebrow">Boomi Integration</div><div class="ttl">Inbound: AWS Marketplace</div><div class="rule"></div><div class="lines">Pull listings, SKUs, prices<br>Map to DataHub batch XML</div><div class="note">Source: aws_marketplace</div></div><div class="card" id="dh" style="--bar:#0FA69A;--ink:#0E9E92;--bg:#E3F7F4;--line:#AEE3DC;grid-area:dh"><div class="badge">5</div><div class="icon"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path fill-rule="evenodd" clip-rule="evenodd" d="M11.0769 4.04048C11.4674 3.64996 11.4674 3.01679 11.0769 2.62627C10.6864 2.23574 10.0532 2.23574 9.6627 2.62627L8.36459 3.92437L8.07882 3.63859C8.07565 3.63534 8.07245 3.6321 8.06923 3.62887C8.066 3.62565 8.06276 3.62245 8.05951 3.61928L7.46753 3.02731C7.07701 2.63678 6.44385 2.63678 6.05332 3.02731C5.69864 3.38199 5.66609 3.93681 5.95566 4.32823L3.7789 6.50499L3.77818 6.50571C3.5361 6.74704 3.34401 7.03376 3.2129 7.34944C3.08165 7.66543 3.01409 8.00423 3.01409 8.34639C3.01409 8.68856 3.08165 9.02736 3.2129 9.34335C3.344 9.65902 3.53609 9.94573 3.77815 10.1871L3.7789 10.1878L4.14316 10.5521L2.0429 12.6523C1.65238 13.0428 1.65238 13.676 2.0429 14.0665C2.43343 14.457 3.06659 14.457 3.45712 14.0665L5.55737 11.9663L5.92175 12.3307L5.92256 12.3315C6.16387 12.5735 6.45056 12.7656 6.7662 12.8967C7.0822 13.0279 7.421 13.0955 7.76316 13.0955C8.10533 13.0955 8.44412 13.0279 8.76012 12.8967C9.07582 12.7655 9.36254 12.5734 9.60388 12.3313L9.60457 12.3307L11.7813 10.1539C12.1728 10.4433 12.7275 10.4107 13.0821 10.0561C13.4726 9.66558 13.4726 9.03242 13.0821 8.64189L12.4903 8.05004C12.4871 8.04679 12.4839 8.04355 12.4807 8.04033C12.4775 8.03711 12.4742 8.03392 12.471 8.03075L12.1851 7.74483L13.4832 6.44673C13.8737 6.05621 13.8737 5.42304 13.4832 5.03252C13.0926 4.64199 12.4595 4.64199 12.0689 5.03252L10.7708 6.33062L9.77881 5.33858L11.0769 4.04048Z" fill="#64B5F6"/>
+</svg></div><div class="eyebrow plainCase">Boomi DataHub</div><div class="ttl">CPG Product Model</div><div class="rule"></div><div class="lines">Match on GTIN<br>Shopify wins on price<br>Harmonized SKU generated</div><span class="chip" style="color:#127C3F;border-color:#127C3F">Golden record</span><span class="chip" style="color:#B45309;border-color:#B45309">Quarantine</span></div><div class="card" id="exp" style="--bar:#5C6B7A;--ink:#41505E;--bg:#EEF1F4;--line:#CBD4DC;grid-area:exp"><div class="badge">6</div><div class="icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M17.5 1H6.5C3.475 1 1 3.475 1 6.5V17.5C1 20.525 3.475 23 6.5 23H17.5C20.525 23 23 20.525 23 17.5V6.5C23 3.475 20.525 1 17.5 1ZM18.8062 9.31875L16.8125 11.3125L17.5688 12.0688L18.325 12.825C18.6 13.1 18.6 13.5125 18.325 13.7875C18.05 14.0625 17.6375 14.0625 17.3625 13.7875L17.0875 13.5125L13.9937 16.6063C13.7187 16.8813 13.4438 17.0875 13.1 17.1562C12.7563 17.2938 12.4125 17.3625 12.0688 17.3625C11.725 17.3625 11.3813 17.2938 11.0375 17.1562C10.6938 17.0187 10.4188 16.8125 10.1438 16.6063L9.31875 15.7812L6.29375 18.8062C6.01875 19.0812 5.60625 19.0812 5.33125 18.8062C5.05625 18.5312 5.05625 18.1188 5.33125 17.8438L8.35625 14.8188L7.53125 13.9937C7.25625 13.7187 7.05 13.4438 6.98125 13.1C6.84375 12.7563 6.775 12.4125 6.775 12.0688C6.775 11.725 6.84375 11.3813 6.98125 11.0375C7.11875 10.6938 7.325 10.4188 7.53125 10.1438L10.625 7.05L10.35 6.775C10.075 6.5 10.075 6.0875 10.35 5.8125C10.625 5.5375 11.0375 5.5375 11.3125 5.8125L12.0688 6.56875L12.825 7.325L14.8188 5.33125C15.0938 5.05625 15.5062 5.05625 15.7812 5.33125C16.0563 5.60625 16.0563 6.01875 15.7812 6.29375L13.7875 8.2875L15.7812 10.2812L17.775 8.2875C18.05 8.0125 18.4625 8.0125 18.7375 8.2875C19.0812 8.5625 19.0812 9.04375 18.8062 9.31875Z" fill="#2196F3"/>
+</svg></div><div class="eyebrow plainCase">Warehouse</div><div class="ttl">Postgres (Docker)</div><div class="rule"></div><div class="lines">Golden rows<br>Source rows</div><div class="note">Written by a Boomi export process</div></div><div class="card" id="out" style="--bar:#0B2A4A;--ink:#0B2A4A;--bg:#DCE8F3;--line:#B4C9DE;grid-area:out"><div class="badge">7</div><div class="icon"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M11.2345 7.8862V10.3946C11.2345 10.8963 11.6358 11.1973 12.0372 11.1973C12.5389 11.1973 12.8399 10.796 12.8399 10.3946V7.8862C12.8399 7.38451 12.4385 7.0835 12.0372 7.0835C11.5355 7.0835 11.2345 7.38451 11.2345 7.8862Z" fill="#64B5F6"/>
+<path d="M12.0372 12.1003C11.5355 12.1003 11.2345 12.5017 11.2345 12.903C11.2345 13.4047 11.6358 13.7057 12.0372 13.7057C12.5389 13.7057 12.8399 13.3044 12.8399 12.903C12.8399 12.4013 12.5389 12.1003 12.0372 12.1003Z" fill="#64B5F6"/>
+<path d="M22.5726 2.36761C22.1712 2.0666 21.7699 1.86592 21.2682 1.86592H2.80607C2.30439 1.86592 1.8027 2.0666 1.50169 2.36761C1.20067 2.66862 1 3.17031 1 3.672V20.2277C1 20.5287 1.10034 20.93 1.30101 21.231C1.50169 21.5321 1.8027 21.7327 2.10371 21.9334C2.30439 22.0337 2.6054 22.1341 2.90641 22.1341C3.00675 22.1341 3.10709 22.1341 3.10709 22.1341C3.4081 22.1341 3.80945 21.9334 4.01012 21.7327L7.32126 18.9233H21.1678C21.6695 18.9233 22.0709 18.7226 22.4722 18.4216C22.8736 18.1206 22.9739 17.6189 22.9739 17.1172V3.672C23.0742 3.17031 22.8736 2.76896 22.5726 2.36761ZM17.2547 10.3946C17.2547 13.3044 14.9469 15.6122 12.0371 15.6122C9.12733 15.6122 6.81957 13.3044 6.81957 10.3946C6.81957 7.48482 9.12733 5.17706 12.0371 5.17706C14.9469 5.17706 17.2547 7.48482 17.2547 10.3946Z" fill="#64B5F6"/>
+</svg></div><div class="eyebrow">Boomi Integration</div><div class="ttl">Outbound Processes</div><div class="rule"></div><div class="lines">Push golden price and harmonized SKU to each channel<br>Native channel SKU left untouched</div></div><div class="card" id="ela" style="--bar:#0B2A4A;--ink:#7A4A00;--bg:#FFC627;--line:#D9A400;grid-area:ela"><div class="badge">8</div><div class="icon"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path fill-rule="evenodd" clip-rule="evenodd" d="M10.6931 2.4703C11.1287 2.25248 11.5644 2.14357 12 2.14357C12.4356 2.14357 12.8713 2.25248 13.3069 2.4703C13.7426 2.68812 14.0693 3.01486 14.2871 3.4505L22.6733 17.9356C22.8911 18.3713 23 18.8069 23 19.2426C23 19.6782 22.8911 20.1139 22.6733 20.5495C22.4554 20.9852 22.1287 21.3119 21.6931 21.5297C21.2574 21.7475 20.8218 21.8564 20.3861 21.8564H3.61386C3.17822 21.8564 2.74257 21.7475 2.30693 21.5297C1.87129 21.3119 1.54455 20.9852 1.32673 20.5495C1.10891 20.2228 1 19.6782 1 19.2426C1 18.8069 1.10891 18.3713 1.32673 17.9356L9.71287 3.4505C9.93069 3.01486 10.2574 2.68812 10.6931 2.4703ZM12 19.2426C12.8713 19.2426 13.5248 18.5891 13.5248 17.7178C13.5248 16.8465 12.8713 16.1931 12 16.1931C11.1287 16.1931 10.4752 16.8465 10.4752 17.7178C10.4752 18.5891 11.1287 19.2426 12 19.2426ZM12 9.22278C12.8713 9.22278 13.6337 9.98515 13.6337 10.8564V13.9059C13.6337 14.7772 12.8713 15.5396 12 15.5396C11.1287 15.5396 10.3663 14.7772 10.3663 13.9059V10.8564C10.3663 9.98515 11.1287 9.22278 12 9.22278Z" fill="#E57373"/>
+</svg></div><div class="eyebrow plainCase">Observability</div><div class="ttl">dbt + Elementary</div><div class="rule"></div><div class="lines">Price drift<br>Unmatched SKU<br>Freshness and nulls</div><span class="chip" style="color:#B45309;border-color:#B45309">Observability report</span></div><div class="card" id="meta" style="--bar:#7A3FF2;--ink:#6A2FE0;--bg:#F1EAFE;--line:#D7C4FA;grid-area:meta"><div class="badge">9</div><div class="icon"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path fill-rule="evenodd" clip-rule="evenodd" d="M10.4212 2.2928L12.5424 4.44665C12.622 4.52744 12.6667 4.637 12.6667 4.75124V10.782C12.6664 11.0104 12.5769 11.2294 12.4179 11.3909C12.2588 11.5524 12.0431 11.6433 11.8182 11.6435H10.9697V12.5051C10.9694 12.7335 10.88 12.9525 10.7209 13.114C10.5618 13.2755 10.3462 13.3664 10.1212 13.3666H4.18182C3.95687 13.3664 3.7412 13.2755 3.58214 13.114C3.42307 12.9525 3.33359 12.7335 3.33334 12.5051V4.75124C3.33359 4.52283 3.42307 4.30384 3.58214 4.14233C3.7412 3.98082 3.95687 3.88996 4.18182 3.8897H5.03031V3.02816C5.03056 2.79975 5.12004 2.58077 5.27911 2.41925C5.43817 2.25774 5.65384 2.16689 5.87879 2.16663H10.1212C10.2337 2.16663 10.3417 2.21201 10.4212 2.2928ZM10.9697 10.782H11.8182V4.92969L9.9455 3.02816H5.87879V3.8897H8.42424C8.53677 3.8897 8.64468 3.93509 8.72425 4.01588L10.8455 6.16972C10.925 6.25051 10.9697 6.36008 10.9697 6.47432V10.782Z" fill="#64B5F6"/>
+<path d="M8.34469 8.83461H5.79923C5.68672 8.83461 5.57881 8.78923 5.49925 8.70845C5.41969 8.62766 5.37499 8.51809 5.37499 8.40385C5.37499 8.2896 5.41969 8.18003 5.49925 8.09925C5.57881 8.01846 5.68672 7.97308 5.79923 7.97308H8.34469C8.45721 7.97308 8.56511 8.01846 8.64467 8.09925C8.72424 8.18003 8.76893 8.2896 8.76893 8.40385C8.76893 8.51809 8.72424 8.62766 8.64467 8.70845C8.56511 8.78923 8.45721 8.83461 8.34469 8.83461ZM8.34469 7.11154H5.79923C5.68672 7.11154 5.57881 7.06615 5.49925 6.98537C5.41969 6.90458 5.37499 6.79502 5.37499 6.68077C5.37499 6.56652 5.41969 6.45695 5.49925 6.37617C5.57881 6.29538 5.68672 6.25 5.79923 6.25H8.34469C8.45721 6.25 8.56511 6.29538 8.64467 6.37617C8.72424 6.45695 8.76893 6.56652 8.76893 6.68077C8.76893 6.79502 8.72424 6.90458 8.64467 6.98537C8.56511 7.06615 8.45721 7.11154 8.34469 7.11154Z" fill="#1A1A1A"/>
+<rect x="2.16666" y="9.75" width="11.6667" height="4.08333" rx="1" fill="#90A4AE"/>
+</svg></div><div class="eyebrow plainCase">Governance</div><div class="ttl">Boomi MetaHub Business Glossary</div><div class="rule"></div><div class="lines">Harmonized SKU  ·  Price Authority  ·  Channel Price Variance  ·  Canonical Product ID</div><div class="note">Terms associated to the DataHub CPG Product model</div></div></div>
+  </div>
+  <div class="details">
+    <div class="dh">Integration Details</div>
+    <div class="dcards"><div class="dcard" style="--bar:#0FA69A;--ink:#0E9E92;--bg:#E3F7F4;--line:#AEE3DC"><h3>Match &amp; Survivorship</h3><ul><li>One model, one source per channel</li><li>Match rule on canonical product ID (GTIN)</li><li>Shopify is the price authority; AWS price aligned to it</li></ul></div><div class="dcard" style="--bar:#0B2A4A;--ink:#0B2A4A;--bg:#DCE8F3;--line:#B4C9DE"><h3>Runtime</h3><ul><li>Local Atom reaches Docker via host.docker.internal</li><li>AWS Marketplace mock, Postgres, dbt + Elementary in Docker</li><li>Credentials in .env, never committed</li><li>Built with Boomi Companion (build helper only)</li></ul></div><div class="dcard" style="--bar:#7A3FF2;--ink:#6A2FE0;--bg:#F1EAFE;--line:#D7C4FA"><h3>Reusable Pattern</h3><ul><li>Pull the same entity from several systems</li><li>Harmonize, govern, monitor, push back</li><li>CPG first, then Manufacturing and Finance</li></ul></div></div>
+  </div>
+  <div class="foot">CPG POC<span class="dot">&middot;</span>Boomi Integration + DataHub + MetaHub + Elementary<span class="dot">&middot;</span>Use Case 1: SKU &amp; Price Harmonization</div>
+</div>
+<script>
+window.ARROWS = [{"from": "muse", "to": "inbs", "fs": "b", "ts": "t", "dash": true, "pill": "triggers run via API", "px": 620, "py": 286}, {"from": "shop", "to": "inbs", "ci": "blue", "colour": "#1273E6", "pill": "catalog + prices"}, {"from": "aws", "to": "inba", "ci": "blue", "colour": "#1273E6", "pill": "listings + prices"}, {"from": "inbs", "to": "dh", "pill": "batch load"}, {"from": "inba", "to": "dh", "pill": "batch load"}, {"from": "dh", "to": "exp", "ci": "teal", "colour": "#0FA69A", "pill": "golden + source rows"}, {"from": "exp", "to": "ela", "fs": "b", "ts": "t", "pill": "tables"}, {"from": "dh", "to": "out", "fs": "b", "ts": "r", "curve": 112, "ci": "teal", "colour": "#0FA69A", "pill": "golden record"}, {"from": "out", "to": "aws", "fs": "t", "ts": "b", "ci": "green", "colour": "#127C3F", "pill": "price + SKU to both channels"}, {"from": "meta", "to": "dh", "fs": "b", "ts": "t", "dash": true, "ci": "purple", "colour": "#6B3FA0", "pill": "associated to model"}];
+window.ARROW_COLOURS = {"navy": "#0B2A4A", "blue": "#1273E6", "teal": "#0FA69A", "green": "#127C3F", "purple": "#6B3FA0"};
+window.GROUPS = [{"title": "Sales Channels", "members": ["shop", "aws"], "colour": "#1273E6", "pad": 14}];
+
+/* Draw the arrows once the grid has laid out, from real element positions.
+   Anchors: l r t b c on each card's box. */
+function anchor(el, side, host){
+  const r = el.getBoundingClientRect(), h = host.getBoundingClientRect();
+  const x0 = r.left - h.left, y0 = r.top - h.top;
+  switch(side){
+    case 'l': return [x0, y0 + r.height/2];
+    case 'r': return [x0 + r.width, y0 + r.height/2];
+    case 't': return [x0 + r.width/2, y0];
+    case 'b': return [x0 + r.width/2, y0 + r.height];
+    default:  return [x0 + r.width/2, y0 + r.height/2];
+  }
+}
+function drawGroups(){
+  const host = document.querySelector('.canvas');
+  host.querySelectorAll('.grp').forEach(g => g.remove());
+  const h = host.getBoundingClientRect();
+  for (const g of (window.GROUPS || [])){
+    const rects = g.members.map(id => document.getElementById(id))
+                           .filter(Boolean).map(el => el.getBoundingClientRect());
+    if (!rects.length) continue;
+    const pad = g.pad === undefined ? 16 : g.pad;
+    const L = Math.min(...rects.map(r => r.left))   - h.left - pad;
+    const T = Math.min(...rects.map(r => r.top))    - h.top  - pad;
+    const R = Math.max(...rects.map(r => r.right))  - h.left + pad;
+    const B = Math.max(...rects.map(r => r.bottom)) - h.top  + pad;
+    const d = document.createElement('div');
+    d.className = 'grp';
+    d.style.cssText = `left:${L}px;top:${T}px;width:${R-L}px;height:${B-T}px;--gc:${g.colour}`;
+    if (g.title) d.insertAdjacentHTML('beforeend', `<div class="gt">${g.title}</div>`);
+    host.appendChild(d);
+  }
+}
+
+function draw(){
+  drawGroups();
+  const host = document.querySelector('.canvas');
+  const svg  = document.querySelector('svg.links');
+  svg.innerHTML = '';
+  const NS = 'http://www.w3.org/2000/svg';
+  const defs = document.createElementNS(NS,'defs');
+  for (const [id,col] of Object.entries(window.ARROW_COLOURS)){
+    const m = document.createElementNS(NS,'marker');
+    m.setAttribute('id','ah-'+id); m.setAttribute('viewBox','0 0 10 10');
+    m.setAttribute('refX','9'); m.setAttribute('refY','5');
+    m.setAttribute('markerWidth','7'); m.setAttribute('markerHeight','7');
+    m.setAttribute('orient','auto-start-reverse');
+    const p = document.createElementNS(NS,'path');
+    p.setAttribute('d','M 0 0 L 10 5 L 0 10 z'); p.setAttribute('fill',col);
+    m.appendChild(p); defs.appendChild(m);
+  }
+  svg.appendChild(defs);
+
+  for (const a of window.ARROWS){
+    const from = document.getElementById(a.from), to = document.getElementById(a.to);
+    if(!from || !to) continue;
+    const [x1,y1] = anchor(from, a.fs || 'r', host);
+    const [x2,y2] = anchor(to,   a.ts || 'l', host);
+    const col = a.colour || '#0B2A4A';
+    let d;
+    if (a.curve){                       /* bowed connector for long returns */
+      const mx = (x1+x2)/2, my = (y1+y2)/2 + (a.curve);
+      d = `M ${x1} ${y1} Q ${mx} ${my} ${x2} ${y2}`;
+    } else if (a.elbow){                /* right-angle: out, across, in */
+      const mx = a.elbow;
+      d = `M ${x1} ${y1} L ${mx} ${y1} L ${mx} ${y2} L ${x2} ${y2}`;
+    } else {
+      d = `M ${x1} ${y1} L ${x2} ${y2}`;
+    }
+    const p = document.createElementNS(NS,'path');
+    p.setAttribute('d', d); p.setAttribute('fill','none');
+    p.setAttribute('stroke', col); p.setAttribute('stroke-width', a.w || 2.4);
+    if (a.dash) p.setAttribute('stroke-dasharray','8 6');
+    if (a.head !== false) p.setAttribute('marker-end','url(#ah-'+(a.ci||'navy')+')');
+    svg.appendChild(p);
+
+    if (a.label){
+      const t = document.createElementNS(NS,'text');
+      t.setAttribute('class','lbl' + (a.muted ? ' muted' : ''));
+      t.setAttribute('text-anchor','middle');
+      const lx = a.lx !== undefined ? a.lx : (x1+x2)/2;
+      const ly = a.ly !== undefined ? a.ly : (y1+y2)/2 - 10;
+      t.setAttribute('x', lx); t.setAttribute('y', ly);
+      t.textContent = a.label; svg.appendChild(t);
+    }
+    if (a.pill){
+      const g = document.createElementNS(NS,'g'); g.setAttribute('class','pill');
+      const t = document.createElementNS(NS,'text');
+      t.textContent = a.pill; t.setAttribute('fill', col);
+      const px = a.px !== undefined ? a.px : (x1+x2)/2;
+      const py = a.py !== undefined ? a.py : (y1+y2)/2 + 22;
+      t.setAttribute('x', px); t.setAttribute('y', py);
+      g.appendChild(t); svg.appendChild(g);
+      const bb = t.getBBox();
+      const r = document.createElementNS(NS,'rect');
+      r.setAttribute('x', bb.x-13); r.setAttribute('y', bb.y-6);
+      r.setAttribute('width', bb.width+26); r.setAttribute('height', bb.height+12);
+      r.setAttribute('rx', (bb.height+12)/2); r.setAttribute('stroke', col);
+      g.insertBefore(r, t);
+    }
+  }
+  document.body.dataset.drawn = '1';
+}
+window.addEventListener('load', () => { draw(); setTimeout(draw, 60); });
+window.addEventListener('resize', draw);
+
+</script></body></html>

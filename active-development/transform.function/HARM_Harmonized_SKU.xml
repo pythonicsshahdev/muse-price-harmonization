@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bns:Component xmlns:bns="http://api.platform.boomi.com/"
+               componentId="b09466fa-3019-423b-bb33-404a9921bcb8"
+               name="HARM - Harmonized SKU"
+               type="transform.function"
+               folderId="Rjo4OTczNjc5">
+  <bns:description>built with boomi-companion v1.0.107</bns:description><bns:object>
+    <Function xmlns="">
+      <Inputs>
+        <Input key="1" name="gtin"/>
+      </Inputs>
+      <Outputs>
+        <Output key="1" name="harmonized_sku"/>
+      </Outputs>
+      <Steps>
+        <FunctionStep cacheEnabled="true" cacheOption="none" category="String" key="1"
+                      name="Left Character Trim" position="1" sumEnabled="false"
+                      type="LeftTrim" x="100.0" y="100.0">
+          <Inputs>
+            <Input default="" key="1" name="Original String"/>
+            <Input default="8" key="2" name="Fix to Length"/>
+          </Inputs>
+          <Outputs><Output key="3" name="Result"/></Outputs>
+          <Configuration/>
+        </FunctionStep>
+        <FunctionStep cacheEnabled="true" cacheOption="none" category="String" key="2"
+                      name="String Concat" position="2" sumEnabled="false"
+                      type="StringConcat" x="400.0" y="100.0">
+          <Inputs>
+            <Input default="CPG-" key="1" name="input1"/>
+            <Input default="" key="2" name="input2"/>
+          </Inputs>
+          <Outputs><Output key="2" name="Result"/></Outputs>
+          <Configuration><StringConcat delimiter=""/></Configuration>
+        </FunctionStep>
+      </Steps>
+      <Mappings>
+        <Mapping fromFunction="0" fromKey="1" fromNamePath="Editor/gtin" fromType="function"
+                 toFunction="1" toKey="1" toNamePath="Left Character Trim/Original String" toType="function"/>
+        <Mapping fromFunction="1" fromKey="3" fromNamePath="Left Character Trim/Result" fromType="function"
+                 toFunction="2" toKey="2" toNamePath="String Concat/input2" toType="function"/>
+        <Mapping fromFunction="2" fromKey="2" fromNamePath="String Concat/Result" fromType="function"
+                 toFunction="0" toKey="1" toNamePath="Editor/harmonized_sku" toType="function"/>
+      </Mappings>
+    </Function>
+  </bns:object>
+</bns:Component>
