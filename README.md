@@ -60,7 +60,7 @@ active-development/   Boomi component XML (processes, connections, operations, p
 analytics/             dbt project, Elementary, and the FastAPI runner (/run, /results, /report, /glossary)
 docs/                  handover, replication guide, runbook, Muse OpenAPI file, design spec, plan, diagrams
 mock-sources/          Docker Compose, the AWS Marketplace mock, the warehouse schema
-scripts/               reset.sh (back to the starting state in about 6 seconds), skill-paths.sh
+scripts/               reset.sh (back to the starting state in about 6 seconds), skill-paths.sh, scrub_pulled_xml.py
 seed/                  the CPG dataset and expected outcomes, the Shopify and MetaHub seed scripts, tests
 .env.example           every setting, by name, with no values
 CLAUDE.md, .claude/    instructions and permission presets for Boomi Companion

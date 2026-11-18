@@ -35,8 +35,9 @@ The folder names are the Boomi component types, which is how the skill scripts l
 - **Subprocesses start with an empty document** (the Message steps called "Start with an empty document"). Query steps
   read their input document as a filter and fail on anything else.
 - **Remove `branchId` from pulled XML before deploying**, and redeploy the API Service Component after changing a listener.
-- The files named `HARM - Shopify ... Products` and `Shopify Product ...` were pulled from the platform after a UI import,
-  so they still carry platform metadata (creator, branch, folder path). The Query operation was edited to also return
+- The files named `HARM - Shopify ... Product(s)` and `Shopify Product ...` were pulled from the platform after a UI import.
+  Their platform metadata (creator email, timestamps, branch, folder path) has been removed. After pulling anything
+  again, run `python3 scripts/scrub_pulled_xml.py` before committing. The Query operation was edited to also return
   `title`, `vendor` and `status`; the import leaves them out.
 
 Working output (account listings, execution logs, the sync state) is git-ignored and regenerated on demand.
