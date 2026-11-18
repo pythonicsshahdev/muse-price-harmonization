@@ -204,6 +204,7 @@ runner), REST/DB V2/native operations, JSON and XML profiles, maps, the UDF. See
 - Full walkthrough from `scripts/reset.sh`: run (5 flagged), price to 9.99, run (AWS follows, 3 flagged),
   results.
 - Muse verified the connector by calling the results action and then asked to run the harmonization.
+- MetaHub screen (Glossaries page, 2026-11-18): the four terms are listed as Endorsed and Published. The list is shared with other projects in the same account (14 terms in total); our four sort to the top by updated date. The association to the `CPG Product` model was verified through the MetaHub API and still to be eyeballed on a term's detail page.
 
 ---
 
