@@ -130,3 +130,10 @@ Verified: 12 rows in `public.harm_golden_products`, harmonized_sku = canonical f
 | HARM - Elementary Run / Results (REST ops) | `01f6f854-c5c7-44cf-82d8-f487dcb69412` / `283abeb1-feff-471c-87c3-17f57c138a91` |
 
 Runtime facts found 2026-11-18: the Atom is the Docker container `Boomi_Runtime` (boomi/atom), shared web server on container port 8078 (not published) and 9092 (published to the Mac as `localhost:9092`); `localhost:8078` on the Mac is an unrelated SSH tunnel. Requests currently return 401: the web server needs Basic credentials (`SERVER_TOKEN` in `.env` is empty). Muse is Meta's hosted agent, so it needs a public tunnel to port 9092. OpenAPI file for Muse: `docs/muse/openapi.yaml` (set the tunnel host in `servers`).
+
+## Task 13 verified 2026-11-18 (through the public tunnel `https://shahnewapigateway.ngrok.dev` -> localhost:9092)
+- runHarmonization: 200, status ok, 5 flagged (3 drift + 2 unmatched) on a fresh reset, ~68s. Two simultaneous runs: one ok, one `in_progress`.
+- changeShopifyPrice: 200 for a valid price (Shopify changed, SKU and tags untouched); 400 for 0, -1, abc, 1.234, empty, 0.00; 404 for an unknown GTIN; store unchanged on errors.
+- showElementaryResults: 200 with the latest summary.
+- Fixes found while testing: (1) the show-results route must be GET (ASC route override httpMethod="GET", otherwise it registers as POST); (2) subprocesses started with the caller's document made the Shopify QUERY step fail with "Could not unmarshall query filter", so an empty Message step now precedes each subprocess call and the Shopify query in the price process.
+- The tunnel (ngrok, domain shahnewapigateway.ngrok.dev -> 9092) was already running from an earlier project (Akima). Basic credentials for the Atom's shared web server are needed by every caller, including Muse.

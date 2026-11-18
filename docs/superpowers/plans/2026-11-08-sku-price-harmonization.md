@@ -254,14 +254,14 @@
 - Create in `active-development/`: WSS operations and processes `HARM - Run Harmonization`, `HARM - Change Shopify Price API`, `HARM - Show Elementary Results API`
 
 **Interfaces:**
-- Produces (listener paths): `POST /ws/simple/runHarmonization` → `{"status": "ok"|"in_progress"|"failed", "tests_failed": int, "report_url": str}`; `POST /ws/simple/changeShopifyPrice` body `{"gtin": str, "price": str}` → 200 `{"gtin", "price"}` or 400 `{"error": str}`; `GET /ws/simple/showElementaryResults` → `{"tests_passed": int, "tests_failed": int, "failing": [str], "report_url": str}`.
+- Produces (listener paths): `POST /ws/rest/muse/harmonization/runHarmonization` → `{"status": "ok"|"in_progress"|"failed", "tests_failed": int, "report_url": str}`; `POST /ws/rest/muse/harmonization/changeShopifyPrice` body `{"gtin": str, "price": str}` → 200 `{"gtin", "price"}` or 400 `{"error": str}`; `GET /ws/rest/muse/harmonization/showElementaryResults` → `{"tests_passed": int, "tests_failed": int, "failing": [str], "report_url": str}`.
 - `HARM - Run Harmonization` calls, in order (Branch step, sequential): Inbound Shopify, Inbound AWS Marketplace, Outbound Push, Export Golden to Postgres, then `POST /run` on the runner; a 409 from the runner becomes `"status": "in_progress"`.
 
-- [ ] **Step 1: Build and push** the three processes; deploy them and every process they call with `bash $BI/boomi-deploy.sh <file>`.
-- [ ] **Step 2: Verify run.** `bash $BI/boomi-wss-test.sh --path /ws/simple/runHarmonization --data '{}'`. Expected: `"status":"ok"` and `tests_failed` of 5 (3 price plus 2 unmatched, on seed data).
-- [ ] **Step 3: Verify price change.** `--path /ws/simple/changeShopifyPrice --data '{"gtin":"<seeded gtin>","price":"9.99"}'`. Expected: 200, and `python3 seed/shopify_seed.py check` reports the changed price. Then send prices `0`, `-1`, `abc`, `1.234`. Expected: each 400 and the store unchanged.
-- [ ] **Step 4: Verify results.** `--path /ws/simple/showElementaryResults --method GET`. Expected: counts matching the last run.
-- [ ] **Step 5: Verify concurrency.** Fire two `runHarmonization` calls at once. Expected: one `ok`, one `in_progress`.
+- [x] **Step 1: Build and push** the three processes; deploy them and every process they call with `bash $BI/boomi-deploy.sh <file>`.
+- [x] **Step 2: Verify run.** `bash $BI/boomi-wss-test.sh --path /ws/simple/runHarmonization --data '{}'`. Expected: `"status":"ok"` and `tests_failed` of 5 (3 price plus 2 unmatched, on seed data).
+- [x] **Step 3: Verify price change.** `--path /ws/simple/changeShopifyPrice --data '{"gtin":"<seeded gtin>","price":"9.99"}'`. Expected: 200, and `python3 seed/shopify_seed.py check` reports the changed price. Then send prices `0`, `-1`, `abc`, `1.234`. Expected: each 400 and the store unchanged.
+- [x] **Step 4: Verify results.** `--path /ws/simple/showElementaryResults --method GET`. Expected: counts matching the last run.
+- [x] **Step 5: Verify concurrency.** Fire two `runHarmonization` calls at once. Expected: one `ok`, one `in_progress`.
 - [ ] **Step 6: Register with Muse.** Using the entry point recorded in Task 0, register the three endpoints and ask Muse for each request in plain language; confirm each returns the expected result. If `Muse entry point` is still `UNCONFIRMED`, stop and ask the presenter.
 - [ ] **Step 7: Commit.**
 

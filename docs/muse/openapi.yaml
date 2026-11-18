@@ -7,8 +7,8 @@ info:
     one reads a Shopify development store and an AWS Marketplace mock, harmonizes them in Boomi
     Data Hub, and checks the result with dbt and Elementary. Prices are decimal strings.
 servers:
-  - url: https://REPLACE-WITH-YOUR-TUNNEL-HOST/ws/rest/muse/harmonization
-    description: Public tunnel to the local Boomi Atom (port 9092). Replace before importing.
+  - url: https://shahnewapigateway.ngrok.dev/ws/rest/muse/harmonization
+    description: Public ngrok tunnel to the local Boomi Atom web server (port 9092). Requires HTTP Basic credentials.
 security:
   - basicAuth: []
 paths:
