@@ -1,8 +1,10 @@
 # SKU and Price Harmonization POC — Design
 
 Date: 2026-10-28
-Status: Approved by the presenter on 2026-11-08 ("for now"; may be revised).
-Nothing built yet.
+Status: Approved by the presenter on 2026-11-08. **Built and verified on 2026-11-18**; see
+`docs/handover/HANDOVER.md` for what was built and where it differs from this design (for example the model is
+named `cpgproduct`, the warehouse is a shared cloud Postgres, and Muse reaches the API through the Boomi API gateway).
+This document is kept as the original intent.
 
 ## Intent and why
 

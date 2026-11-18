@@ -21,3 +21,7 @@ venv/
 
 # OS
 .DS_Store
+
+# Boomi Companion working output (account listings, execution logs); regenerated on demand
+active-development/inventories/
+active-development/feedback/execution-results/
