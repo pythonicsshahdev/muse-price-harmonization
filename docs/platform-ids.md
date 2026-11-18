@@ -141,3 +141,11 @@ Runtime facts found 2026-11-18: the Atom is the Docker container `Boomi_Runtime`
 ## How Muse reaches the API (confirmed 2026-11-18)
 Public door: `https://shahapigateway.ngrok.devsecops-prod.boomi.com` (ngrok, already running) -> `localhost:8078` = the `Boomi_Prod_Gateway` container (Boomi API Gateway) -> the Atom (`Boomi_Runtime`). `HARM - Muse API` is registered in API Management on Local_Runtime with plan "APIM Unlimited". Callers send the API Management key in the `x-api-key` header (the key is `HARM_MUSE_API_KEY` in `.env`; never commit or paste it). Without the key the gateway answers 401. Paths: `/ws/rest/muse/harmonization/runHarmonization` (POST), `.../changeShopifyPrice` (POST), `.../showElementaryResults` (GET). OpenAPI for Muse: `docs/muse/openapi.yaml`. Direct access to the Atom (`localhost:9092`, tunnel `shahnewapigateway.ngrok.dev`) needs Basic credentials instead; Muse should use the gateway.
 Known gap: the `report_url` in responses is `http://localhost:4121/report`, which Muse (hosted) cannot open.
+
+## showGlossary (added 2026-11-18)
+| Component | ID |
+|---|---|
+| HARM - Show Glossary API (listener process, GET `showGlossary`) | `08679f36-5926-4a7f-9471-7524a5e7aff6` |
+| HARM - WSS Show Glossary (listener op) | `a0b89f92-3a36-4b11-993c-6d3b8278a43d` |
+| HARM - Elementary Glossary (REST op, GET `/glossary` on the runner) | `bd93e36e-4ea4-44c5-9e2e-5dda8e3ac6cb` |
+`HARM - Muse API` is now v3 with a fourth route. The runner's `GET /glossary` reads MetaHub (JWT from the Boomi API token; associations for the CPG Product model, then each term's content). Verified through the public gateway: 200, 4 terms with definitions.

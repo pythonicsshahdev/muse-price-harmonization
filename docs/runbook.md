@@ -17,7 +17,7 @@ gateway -> Boomi Atom -> Shopify / AWS mock / Data Hub / Postgres (RDS) -> dbt +
    (it forwards to the gateway). Check: `curl -s -o /dev/null -w '%{http_code}\n' https://shahapigateway.ngrok.devsecops-prod.boomi.com/ws/rest/muse/harmonization/showElementaryResults` prints **401** (up and protected).
 4. `bash scripts/reset.sh` (see below).
 
-## The three requests Muse can make
+## The four requests Muse can make
 
 The Muse connector is "Boomi Harmonization", built from `docs/muse/openapi.yaml`. Every call sends the
 API Management key in the `x-api-key` header (`HARM_MUSE_API_KEY` in `.env`; never paste or commit it).
@@ -27,6 +27,7 @@ API Management key in the `x-api-key` header (`HARM_MUSE_API_KEY` in `.env`; nev
 | "Run the harmonization" | `POST /ws/rest/muse/harmonization/runHarmonization` | Loads Shopify and AWS into Data Hub, pushes the golden price and SKU back, exports to Postgres, runs the dbt/Elementary checks. 60 to 70 seconds. A second run at the same time answers `in_progress`. |
 | "Change the price of <product> to 9.99" | `POST .../changeShopifyPrice` `{"gtin","price"}` | Sets the Shopify price by GTIN. 400 for a price that is not a positive number with at most 2 decimals; 404 for an unknown GTIN. Only products tagged `harmonization-poc` are touched. |
 | "What did the data-quality checks find?" | `GET .../showElementaryResults` | The latest summary: checks passed, records flagged, which checks failed. |
+| "What does Price Authority mean?" | `GET .../showGlossary` | The four endorsed MetaHub terms with plain-text definitions, read live from MetaHub (via the runner's `/glossary`). |
 
 Demo beat: reset, run (5 flagged: 3 price drifts + 2 unmatched listings), change one Shopify price,
 run again (the AWS listing follows Shopify; drift for that product shows once), show the results.
@@ -45,7 +46,7 @@ touch Data Hub (the next run recomputes it) or any other table in the shared dat
 | **Elementary report (visual)** | open `http://localhost:4121/report` in a browser, after at least one run. Lineage, test results, anomalies. |
 | Latest summary as JSON | `curl localhost:4121/results` |
 | Golden records and quarantine | Boomi Data Hub UI, model `cpgproduct`, repository `enterprise-data-hub`; or `bash $DH/datahub-quarantine.sh query --universe df443425-d048-44ab-9482-a7cc903b3b3c` (after `source scripts/skill-paths.sh`) |
-| Harmonized SKU and price terms | MetaHub: four endorsed glossary terms associated to the CPG Product model |
+| Harmonized SKU and price terms | MetaHub UI (Glossaries page), four endorsed terms associated to the CPG Product model; Muse reads them with `showGlossary`; `curl localhost:4121/glossary` |
 | Warehouse tables | RDS database `postgresdemo`, `public.harm_source_products` (one row per channel listing), `public.harm_golden_products`; Elementary in schema `harm_elementary`, dbt models in `harm` |
 | Boomi components | folder `boomi_shah_abdullah/Sku Harmonization POC`, all named `HARM - ...`; IDs in `docs/platform-ids.md` |
 

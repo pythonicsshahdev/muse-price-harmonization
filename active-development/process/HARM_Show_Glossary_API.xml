@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bns:Component xmlns:bns="http://api.platform.boomi.com/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" componentId="08679f36-5926-4a7f-9471-7524a5e7aff6" folderId="Rjo4OTczNjc5" name="HARM - Show Glossary API" type="process">
+  <bns:encryptedValues/>
+  <bns:description>Muse entry point: returns the MetaHub business glossary terms for the CPG Product model (name, endorsement, purpose, plain-text definition). | built with boomi-companion v1.0.107</bns:description>
+  <bns:object>
+    <process allowSimultaneous="true" enableUserLog="false" processLogOnErrorOnly="false" purgeDataImmediately="false" stopProcessingIfZeroDocuments="true" updateRunDates="false" workload="general">
+      <shapes><shape image="start" name="shape1" shapetype="start" userlabel="" x="48" y="96"><configuration><connectoraction actionType="Listen" allowDynamicCredentials="NONE" connectorType="wss" hideSettings="true" operationId="a0b89f92-3a36-4b11-993c-6d3b8278a43d"><parameters/><dynamicProperties/></connectoraction></configuration><dragpoints><dragpoint name="shape1.dragpoint1" toShape="shape2" x="0" y="0"/></dragpoints></shape><shape image="connectoraction_icon" name="shape2" shapetype="connectoraction" userlabel="Get the MetaHub terms" x="240" y="96"><configuration><connectoraction actionType="GET" allowDynamicCredentials="NONE" connectionId="770b6955-e530-4a4b-bac0-f6fba23bd56c" connectorType="officialboomi-X3979C-rest-prod" hideSettings="false" operationId="bd93e36e-4ea4-44c5-9e2e-5dda8e3ac6cb"><parameters/><dynamicProperties/></connectoraction></configuration><dragpoints><dragpoint name="shape2.dragpoint1" toShape="shape3" x="0" y="0"/></dragpoints></shape><shape image="returndocuments_icon" name="shape3" shapetype="returndocuments" userlabel="Respond with the glossary" x="432" y="96"><configuration><returndocuments/></configuration><dragpoints></dragpoints></shape></shapes>
+    </process>
+  </bns:object>
+</bns:Component>

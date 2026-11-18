@@ -11,8 +11,11 @@ import subprocess
 import threading
 from pathlib import Path
 
+import requests
 from fastapi import FastAPI
 from fastapi.responses import FileResponse, JSONResponse
+
+import glossary
 
 PROJECT_DIR = Path(os.environ.get("DBT_PROJECT_DIR", "/app"))
 RUN_RESULTS = PROJECT_DIR / "target" / "run_results.json"
@@ -79,6 +82,17 @@ def report():
     if not REPORT.exists():
         return JSONResponse({"message": "No report yet. POST /run first."}, status_code=404)
     return FileResponse(REPORT, media_type="text/html")
+
+
+@app.get("/glossary")
+def glossary_terms():
+    """MetaHub business terms for the CPG Product model, for the Muse action showGlossary."""
+    try:
+        return glossary.fetch_terms()
+    except glossary.NotConfigured as exc:
+        return JSONResponse({"message": str(exc)}, status_code=503)
+    except (glossary.MetaHubError, requests.RequestException) as exc:
+        return JSONResponse({"message": "MetaHub is unavailable: %s" % exc}, status_code=502)
 
 
 @app.get("/health")

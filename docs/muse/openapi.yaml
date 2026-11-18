@@ -94,6 +94,22 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/RunSummary"
+  /showGlossary:
+    get:
+      operationId: showGlossary
+      summary: Explain the business terms behind the data
+      description: >
+        Returns the endorsed business glossary terms for the CPG Product model: Harmonized SKU,
+        Price Authority, Channel Price Variance and Canonical Product ID, each with a plain-text
+        definition. Use it when someone asks what a term or a data-quality check means, for
+        example why Shopify wins on price or how the harmonized SKU is formed.
+      responses:
+        "200":
+          description: The glossary terms
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Glossary"
 components:
   securitySchemes:
     apiKeyAuth:
@@ -118,6 +134,20 @@ components:
           description: Names of the checks that flagged records
         report_url:
           type: string
+    Glossary:
+      type: object
+      properties:
+        model: {type: string}
+        term_count: {type: integer}
+        terms:
+          type: array
+          items:
+            type: object
+            properties:
+              name: {type: string}
+              endorsement: {type: string, description: ENDORSED means the term is approved}
+              purpose: {type: string, description: Why the term exists}
+              definition: {type: string, description: Plain-text definition}
     Error:
       type: object
       properties:

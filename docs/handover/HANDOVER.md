@@ -135,7 +135,7 @@ Variance, Canonical Product ID. `seed/metahub_seed.py` is idempotent.
 
 ## 4. The Boomi processes
 
-All in folder `Sku Harmonization POC`. Seven processes:
+All in folder `Sku Harmonization POC`. Eight processes:
 
 | Process | What it does |
 |---|---|
@@ -147,9 +147,12 @@ All in folder `Sku Harmonization POC`. Seven processes:
 | `HARM - Change Shopify Price API` | Listener. Validates the price (positive, at most 2 decimals), checks the GTIN exists in Data Hub, finds the product in Shopify, updates the variant price. 400 for a bad price, 404 for an unknown GTIN. |
 | `HARM - Show Elementary Results API` | Listener. Returns the runner's latest summary. |
 
-Plus the API Service Component `HARM - Muse API` (base path `muse`) that publishes the three listeners at
-`/ws/rest/muse/harmonization/runHarmonization` (POST), `.../changeShopifyPrice` (POST) and
-`.../showElementaryResults` (GET).
+An eighth process, `HARM - Show Glossary API`, returns the MetaHub terms (it calls the runner's `/glossary`, which reads
+MetaHub read-only with the Boomi API credentials passed to that container).
+
+Plus the API Service Component `HARM - Muse API` (base path `muse`) that publishes the four listeners at
+`/ws/rest/muse/harmonization/runHarmonization` (POST), `.../changeShopifyPrice` (POST),
+`.../showElementaryResults` (GET) and `.../showGlossary` (GET).
 
 Other components: five connections (Shopify native, AWS mock, DataHub REST, Postgres on RDS, Elementary
 runner), REST/DB V2/native operations, JSON and XML profiles, maps, the UDF. See `platform-ids.md`.
@@ -246,6 +249,9 @@ runner), REST/DB V2/native operations, JSON and XML profiles, maps, the UDF. See
 
 ## 10. Security notes
 
+- The Elementary runner container now holds the Boomi API credentials (account, user, token) so it can read MetaHub for
+  the `showGlossary` action. It is read-only and local, but it is one more place the token lives. Rotate the token if the
+  machine is shared.
 - Credentials live only in `.env` (git-ignored): Boomi API token, Data Hub repository token, Shopify client
   secret, RDS password, the API Management key. None of them appears in the repository; a scan for the
   current values was run before each commit.

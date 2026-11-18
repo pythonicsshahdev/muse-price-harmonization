@@ -38,6 +38,11 @@ services:
       POSTGRES_DB: ${POSTGRES_DB:-harmonization}
       POSTGRES_USER: ${POSTGRES_USER:-harm}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-}
+      # Read-only MetaHub access for GET /glossary (the Muse action showGlossary).
+      BOOMI_ACCOUNT_ID: ${BOOMI_ACCOUNT_ID:-}
+      BOOMI_USERNAME: ${BOOMI_USERNAME:-}
+      BOOMI_API_TOKEN: ${BOOMI_API_TOKEN:-}
+      METAHUB_UNIVERSE_ID: ${METAHUB_UNIVERSE_ID:-df443425-d048-44ab-9482-a7cc903b3b3c}
     restart: unless-stopped
 
 volumes:
