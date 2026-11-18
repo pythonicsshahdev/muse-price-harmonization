@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bns:Component xmlns:bns="http://api.platform.boomi.com/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" componentId="689f1b4b-7d74-40fa-bd48-e20b1f4c10d0" name="HARM - AWSMP StartChangeSet" type="connector-action" subType="officialboomi-X3979C-rest-prod" folderId="Rjo4OTczNjc5">
+  <bns:encryptedValues/>
+  <bns:description>built with boomi-companion v1.0.107</bns:description><bns:object>
+    <Operation returnApplicationErrors="true" trackResponse="false">
+      <Archiving directory="" enabled="false"/>
+      <Configuration>
+        <GenericOperationConfig customOperationType="POST" operationType="EXECUTE">
+          <field id="followRedirects" type="string" value="NONE"/>
+          <field id="path" type="string" value="/StartChangeSet"/>
+          <field id="queryParameters" type="customproperties"><customProperties/></field>
+          <field id="requestHeaders" type="customproperties"><customProperties><properties key="Content-Type" value="application/json"/><properties key="Accept" value="application/json"/></customProperties></field>
+          <Options/>
+        </GenericOperationConfig>
+      </Configuration>
+      <Tracking><TrackedFields/></Tracking>
+      <Caching/>
+    </Operation>
+  </bns:object>
+</bns:Component>

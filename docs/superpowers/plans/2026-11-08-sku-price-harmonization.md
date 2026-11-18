@@ -201,10 +201,10 @@
 - Consumes: golden records via `HARM - DataHub REST Connection`.
 - Produces: process that, per golden record, updates the AWS listing price and `HarmonizedSku` through `StartChangeSet`, and writes `harmonized_sku` to Shopify as a variant or product metafield (use the native connector if it supports metafields; otherwise a generic HTTP Client against the Admin API using the same token). It never changes a channel's native SKU.
 
-- [ ] **Step 1: Build and push.**
-- [ ] **Step 2: Run:** `bash $BI/boomi-test-execute.sh --process-id <id>`. Expected: COMPLETE.
-- [ ] **Step 3: Verify.** `GET localhost:4120/DescribeEntity?catalog=AWSMarketplace&entityId=<aws sku>` for each drift GTIN's entity shows `ListPrice` equal to the Shopify price and a `HarmonizedSku`; `python3 seed/shopify_seed.py check` still reports 12 products with seed prices and unchanged SKUs.
-- [ ] **Step 4: Commit.**
+- [x] **Step 1: Build and push.**
+- [x] **Step 2: Run:** `bash $BI/boomi-test-execute.sh --process-id <id>`. Expected: COMPLETE.
+- [x] **Step 3: Verify.** `GET localhost:4120/DescribeEntity?catalog=AWSMarketplace&entityId=<aws sku>` for each drift GTIN's entity shows `ListPrice` equal to the Shopify price and a `HarmonizedSku`; `python3 seed/shopify_seed.py check` still reports 12 products with seed prices and unchanged SKUs.
+- [x] **Step 4: Commit.**
 
 ### Task 10: Golden export to Postgres
 

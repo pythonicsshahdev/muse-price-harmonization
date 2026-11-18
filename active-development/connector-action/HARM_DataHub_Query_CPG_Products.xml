@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bns:Component xmlns:bns="http://api.platform.boomi.com/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" componentId="31f314c0-16df-41af-8cbf-3e093bb1c6b8" name="HARM - DataHub Query CPG Products" type="connector-action" subType="officialboomi-X3979C-rest-prod" folderId="Rjo4OTczNjc5">
+  <bns:encryptedValues/>
+  <bns:description>built with boomi-companion v1.0.107</bns:description><bns:object>
+    <Operation returnApplicationErrors="true" trackResponse="false">
+      <Archiving directory="" enabled="false"/>
+      <Configuration>
+        <GenericOperationConfig customOperationType="POST" operationType="EXECUTE">
+          <field id="followRedirects" type="string" value="NONE"/>
+          <field id="path" type="string" value="/mdm/universes/df443425-d048-44ab-9482-a7cc903b3b3c/records/query"/>
+          <field id="queryParameters" type="customproperties"><customProperties/></field>
+          <field id="requestHeaders" type="customproperties"><customProperties><properties key="Content-Type" value="application/xml"/><properties key="Accept" value="application/xml"/></customProperties></field>
+          <Options/>
+        </GenericOperationConfig>
+      </Configuration>
+      <Tracking><TrackedFields/></Tracking>
+      <Caching/>
+    </Operation>
+  </bns:object>
+</bns:Component>

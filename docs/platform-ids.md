@@ -95,3 +95,16 @@ Task 7 DataHub half verified 2026-11-17: 12 `shopify` records posted, 12 golden,
 | HARM - Postgres Upsert Source Product (No GTIN) (4 `?`) | `008e91f9-8e42-40e3-978e-f0e5b5a48d87` |
 
 Verified: 12 `aws_marketplace` rows in `public.harm_source_products` (PF-0001 gtin NULL, PF-0002 gtin kept as received); DataHub 12 golden (10 with `aws_sku`), quarantine exactly 2 x REQUIRED_FIELD, drift GTINs keep the Shopify price; aws_marketplace initial load FINISHED. Why two Postgres operations: DB V2 binds `?` positionally, so a missing GTIN shifts the parameters ("No value specified for parameter 5"); a GTIN-less listing uses the 4-field operation instead.
+
+## Task 9 components (in progress 2026-11-18)
+| Component | ID |
+|---|---|
+| HARM - Outbound Push (process; AWS half verified, Shopify half pending) | `0926e189-7ef1-4d5a-8481-eef2bc12d779` |
+| HARM - DataHub Golden Query Response (XML profile) | `67f67ea1-417b-495a-be24-a0cfc95de0dd` |
+| HARM - DataHub Query CPG Products (REST op, POST `/records/query`) | `31f314c0-16df-41af-8cbf-3e093bb1c6b8` |
+| HARM - AWSMP StartChangeSet (REST op) | `689f1b4b-7d74-40fa-bd48-e20b1f4c10d0` |
+Verified: after a run, the 10 matched AWS listings have ListPrice = golden (Shopify) price and HarmonizedSku = CPG-<last 8 of GTIN>; the 2 unmatched are untouched. The push converges the AWS mock, so price drift only reappears after `scripts/reset.sh` or a new Shopify price change.
+| HARM - Shopify Update Product (native op, Product UPDATE; created in the UI by importing, renamed from the probe) | `2f0acb30-a3eb-4434-9f13-33101e24a669` |
+| Shopify Product UPDATE Request / Response (JSON profiles, from the import) | `05e04bce-4f54-404f-bafc-3331a3cc31e7` / `57c3aba2-c432-4dbe-afd0-9fbeb9aa7d5c` |
+
+Task 9 DONE 2026-11-18. HARM - Outbound Push v2 = Branch: (1) golden query -> AWS StartChangeSet for the 10 with an aws_sku; (2) Shopify query (tag filter) -> look up the golden record by GTIN -> write product metafield `harmonization.harmonized_sku`. Shopify has no Metafield object in the connector, but Product UPDATE accepts a `metafields` array. No model change needed (the golden record has no Shopify product id, so the process starts from the Shopify product, which has it). Verified: 12 products carry the metafield = canonical SKU; SKUs, prices and tags unchanged; re-run idempotent.
