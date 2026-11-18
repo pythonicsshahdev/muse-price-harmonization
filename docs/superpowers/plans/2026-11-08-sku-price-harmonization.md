@@ -214,9 +214,9 @@
 **Interfaces:**
 - Produces: process that queries golden records and upserts each into `public.harm_golden_products` (`ON CONFLICT (gtin) DO UPDATE`), setting `shopify_sku` and `aws_sku` from the record's channel fields. Source rows are already written by Tasks 7 and 8.
 
-- [ ] **Step 1: Build and push.**
-- [ ] **Step 2: Run, then verify** `select count(*) from public.harm_golden_products` is 12 and `harmonized_sku` equals `canonical_sku(gtin)` for every row. Run again and confirm the count is still 12.
-- [ ] **Step 3: Commit.**
+- [x] **Step 1: Build and push.**
+- [x] **Step 2: Run, then verify** `select count(*) from public.harm_golden_products` is 12 and `harmonized_sku` equals `canonical_sku(gtin)` for every row. Run again and confirm the count is still 12.
+- [x] **Step 3: Commit.**
 
 ### Task 11: dbt, Elementary and runner
 

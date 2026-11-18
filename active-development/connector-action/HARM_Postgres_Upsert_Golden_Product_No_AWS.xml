@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bns:Component xmlns:bns="http://api.platform.boomi.com/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" componentId="e319334f-d3da-4466-af31-3c4f2124a68f" name="HARM - Postgres Upsert Golden Product (No AWS SKU)" type="connector-action" subType="officialboomi-X3979C-dbv2da-prod" folderId="Rjo4OTczNjc5">
+  <bns:encryptedValues/>
+  <bns:description>For golden records with no AWS listing (positional binding: 6 params). Clears aws_sku on conflict. | built with boomi-companion v1.0.107</bns:description>
+  <bns:object>
+    <Operation returnApplicationErrors="false" trackResponse="false">
+      <Archiving directory="" enabled="false"/>
+      <Configuration>
+        <GenericOperationConfig customOperationType="CREATE" objectTypeId="harm_golden_products" objectTypeName="harm_golden_products" operationType="CREATE" requestProfile="5f381a60-d134-409e-9605-8b68eb33794a" requestProfileType="json" responseProfile="0eda0deb-e07b-40a3-b385-e9ea1f3eabe9" responseProfileType="json">
+          <field id="InsertionType" type="string" value="Standard Insert"/>
+          <field id="schemaName" type="string" value=""/>
+          <field id="query" type="string" value="insert into public.harm_golden_products (golden_id, gtin, harmonized_sku, name, price, shopify_sku, updated_at) values (?, ?, ?, ?, ?, ?, now()) on conflict (gtin) do update set golden_id = excluded.golden_id, harmonized_sku = excluded.harmonized_sku, name = excluded.name, price = excluded.price, shopify_sku = excluded.shopify_sku, aws_sku = null, updated_at = now()"/>
+          <field id="joinTransaction" type="boolean" value="false"/>
+          <field id="CommitOption" type="string" value="Commit By Rows"/>
+          <field id="batchCount" type="integer" value="1"/>
+          <Options/>
+        </GenericOperationConfig>
+      </Configuration>
+      <Tracking><TrackedFields/></Tracking>
+      <Caching/>
+    </Operation>
+  </bns:object>
+</bns:Component>

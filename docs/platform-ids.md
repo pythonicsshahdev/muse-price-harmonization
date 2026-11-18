@@ -108,3 +108,12 @@ Verified: after a run, the 10 matched AWS listings have ListPrice = golden (Shop
 | Shopify Product UPDATE Request / Response (JSON profiles, from the import) | `05e04bce-4f54-404f-bafc-3331a3cc31e7` / `57c3aba2-c432-4dbe-afd0-9fbeb9aa7d5c` |
 
 Task 9 DONE 2026-11-18. HARM - Outbound Push v2 = Branch: (1) golden query -> AWS StartChangeSet for the 10 with an aws_sku; (2) Shopify query (tag filter) -> look up the golden record by GTIN -> write product metafield `harmonization.harmonized_sku`. Shopify has no Metafield object in the connector, but Product UPDATE accepts a `metafields` array. No model change needed (the golden record has no Shopify product id, so the process starts from the Shopify product, which has it). Verified: 12 products carry the metafield = canonical SKU; SKUs, prices and tags unchanged; re-run idempotent.
+
+## Task 10 components (done 2026-11-18)
+| Component | ID |
+|---|---|
+| HARM - Export Golden to Postgres (process) | `70b8b157-b6cf-439b-aadb-0c9b99434b59` |
+| HARM - Postgres Upsert Golden Product / (No AWS SKU) | `b2e96432-2c5d-4536-abba-0f5a38577057` / `e319334f-d3da-4466-af31-3c4f2124a68f` |
+| HARM - Golden Product Upsert Request / (No AWS SKU) Request | `47357409-6898-448c-bcda-e0a86117a3bb` / `5f381a60-d134-409e-9605-8b68eb33794a` |
+| HARM - Map Golden to Postgres Row / (No AWS SKU) | `bed96e70-8c11-4973-bf38-6b80354264ca` / `47ec018a-8d16-4d7e-85f4-ca5083d969e8` |
+Verified: 12 rows in `public.harm_golden_products`, harmonized_sku = canonical for all, NULL aws_sku for the 2 unmatched; re-run keeps 12.

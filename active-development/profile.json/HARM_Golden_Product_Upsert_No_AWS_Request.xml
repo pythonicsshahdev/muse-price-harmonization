@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bns:Component xmlns:bns="http://api.platform.boomi.com/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" componentId="5f381a60-d134-409e-9605-8b68eb33794a" name="HARM - Golden Product Upsert (No AWS SKU) Request" type="profile.json" folderId="Rjo4OTczNjc5">
+  <bns:encryptedValues/>
+  <bns:description>DO NOT RE-SORT. Order = the ? placeholders in HARM - Postgres Upsert Golden Product (No AWS SKU): golden_id, gtin, harmonized_sku, name, price, shopify_sku. Used when a golden record has no AWS listing (DB V2 binds positionally). | built with boomi-companion v1.0.107</bns:description>
+  <bns:object>
+    <JSONProfile strict="false">
+      <DataElements>
+        <JSONRootValue dataType="character" isMappable="true" isNode="true" key="1" name="Root"><DataFormat><ProfileCharacterFormat/></DataFormat>
+          <JSONObject isMappable="false" isNode="true" key="2" name="Object"><JSONObjectEntry dataType="character" isMappable="true" isNode="true" key="3" name="golden_id"><DataFormat><ProfileCharacterFormat/></DataFormat></JSONObjectEntry><JSONObjectEntry dataType="character" isMappable="true" isNode="true" key="4" name="gtin"><DataFormat><ProfileCharacterFormat/></DataFormat></JSONObjectEntry><JSONObjectEntry dataType="character" isMappable="true" isNode="true" key="5" name="harmonized_sku"><DataFormat><ProfileCharacterFormat/></DataFormat></JSONObjectEntry><JSONObjectEntry dataType="character" isMappable="true" isNode="true" key="6" name="name"><DataFormat><ProfileCharacterFormat/></DataFormat></JSONObjectEntry><JSONObjectEntry dataType="number" isMappable="true" isNode="true" key="7" name="price"><DataFormat><ProfileNumberFormat numberFormat=""/></DataFormat></JSONObjectEntry><JSONObjectEntry dataType="character" isMappable="true" isNode="true" key="8" name="shopify_sku"><DataFormat><ProfileCharacterFormat/></DataFormat></JSONObjectEntry></JSONObject>
+          <Qualifiers><QualifierList/></Qualifiers>
+        </JSONRootValue>
+      </DataElements>
+      <tagLists/>
+    </JSONProfile>
+  </bns:object>
+</bns:Component>
